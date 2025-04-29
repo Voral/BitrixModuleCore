@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Exceptions;
 
 use Bitrix\Main\Localization\Loc;

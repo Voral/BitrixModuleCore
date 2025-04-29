@@ -1,4 +1,7 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
+declare(strict_types=1);
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Vasoft\Core\Updater;
 
@@ -12,24 +15,23 @@ use Bitrix\Main\SystemException;
 
 class TableInstaller
 {
-    private Connection|\Bitrix\Main\Data\Connection $connection;
+    private \Bitrix\Main\Data\Connection|Connection $connection;
 
     /**
-     * @param string $moduleId Идентификатор модуля
-     * @param string[] $tables Классы таблиц
+     * @param string   $moduleId Идентификатор модуля
+     * @param string[] $tables   Классы таблиц
+     *
      * @throws LoaderException
      */
     public function __construct(
-        string                 $moduleId,
-        private readonly array $tables
-    )
-    {
+        string $moduleId,
+        private readonly array $tables,
+    ) {
         Loader::includeModule($moduleId);
         $this->connection = Application::getConnection();
     }
 
     /**
-     * @return void
      * @throws ArgumentException
      * @throws SystemException
      */
@@ -44,7 +46,6 @@ class TableInstaller
     }
 
     /**
-     * @return void
      * @throws ArgumentException
      * @throws SystemException
      */

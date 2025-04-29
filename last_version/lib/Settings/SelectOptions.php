@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Settings;
 
-/***
+/**
  * Трейт для использования в перечислениях для реализации опций списков выбора
- * Перечисление при этом должно реализовывать интерфейс SelectOptionsInterface
+ * Перечисление при этом должно реализовывать интерфейс SelectOptionsInterface.
+ *
  * @see SelectOptionsInterface
  */
 trait SelectOptions
@@ -16,11 +19,12 @@ trait SelectOptions
         foreach ($cases as $case) {
             $result[$case->value] = $case->caption();
         }
+
         return $result;
     }
 
-    public static function valid(string|int $value): bool
+    public static function valid(int|string $value): bool
     {
-        return (bool)self::tryFrom($value);
+        return (bool) self::tryFrom($value);
     }
 }

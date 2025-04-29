@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Updater;
 
 class HandlerDto
@@ -9,7 +11,5 @@ class HandlerDto
         public readonly string $messageId,
         public readonly string $receiverClass,
         public readonly string $receiverMethod,
-    )
-    {
-    }
+    ) {}
 }

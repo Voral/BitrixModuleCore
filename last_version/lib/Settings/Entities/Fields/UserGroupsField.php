@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vasoft\Core\Settings\Entities\Fields;
 
 use Bitrix\Main\ArgumentException;
@@ -6,26 +9,21 @@ use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ObjectPropertyException;
 use Bitrix\Main\SystemException;
-use Closure;
 
 class UserGroupsField extends SelectField
 {
     /**
-     * @param string $code
-     * @param string $description
-     * @param Closure $getter
      * @throws ArgumentException
      * @throws ObjectPropertyException
      * @throws SystemException
      */
-    public function __construct(string $code, string $description, Closure $getter)
+    public function __construct(string $code, string $description, \Closure $getter)
     {
         parent::__construct($code, $description, $getter);
         $this->configureGroups();
     }
 
     /**
-     * @return void
      * @throws ArgumentException
      * @throws ObjectPropertyException
      * @throws SystemException

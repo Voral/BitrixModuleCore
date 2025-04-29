@@ -1,4 +1,7 @@
-<?php /** @noinspection PhpUnused */
+<?php
+
+declare(strict_types=1);
+/** @noinspection PhpUnused */
 
 namespace Vasoft\Core\Settings\Example;
 
@@ -8,7 +11,7 @@ use Vasoft\Core\Settings\ModuleSettings;
 use Vasoft\Core\Settings\Normalizers\Normalizer;
 
 /**
- * Пример файла конфигурации
+ * Пример файла конфигурации.
  */
 class ExampleModuleSettings extends ModuleSettings
 {
@@ -33,8 +36,6 @@ class ExampleModuleSettings extends ModuleSettings
     }
 
     /**
-     * @param bool $sendThrow
-     * @return static
      * @throws ArgumentNullException
      */
     public static function getInstance(bool $sendThrow = true): static
@@ -54,7 +55,7 @@ class ExampleModuleSettings extends ModuleSettings
 
     public function isExampleBoolean(): bool
     {
-        return $this->getExampleBoolean() === 'Y';
+        return 'Y' === $this->getExampleBoolean();
     }
 
     public function getExampleArray(): string
@@ -69,19 +70,21 @@ class ExampleModuleSettings extends ModuleSettings
 
     /**
      * Геттер параметра у которого должно быть значение. Отключение исключений необходимо для страницы в админке,
-     * когда есть возможность, что значения еще не задали
-     * @return string | int
+     * когда есть возможность, что значения еще не задали.
+     *
      * @throws RequiredOptionException
      */
-    public function getExampleInt(): string|int
+    public function getExampleInt(): int|string
     {
         if (!array_key_exists(self::PROP_EXAMPLE_INT, $this->options)) {
             if ($this->sendThrow) {
                 throw new RequiredOptionException(self::PROP_EXAMPLE_INT, $this->getOptionName(self::PROP_EXAMPLE_INT));
             }
+
             return 0;
         }
-        return (int)$this->options[self::PROP_EXAMPLE_INT];
+
+        return (int) $this->options[self::PROP_EXAMPLE_INT];
     }
 
     public function getExampleText(): string

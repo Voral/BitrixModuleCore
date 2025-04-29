@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Settings\Example;
 
 use Vasoft\Core\Settings\SelectOptions;
 use Vasoft\Core\Settings\SelectOptionsInterface;
 
-enum ExampleOptions: string
-    implements SelectOptionsInterface
+enum ExampleOptions: string implements SelectOptionsInterface
 {
     use SelectOptions;
 

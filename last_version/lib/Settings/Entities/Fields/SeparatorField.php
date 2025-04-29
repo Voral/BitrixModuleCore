@@ -1,12 +1,13 @@
 <?php
 
-namespace Vasoft\Core\Settings\Entities\Fields;
+declare(strict_types=1);
 
+namespace Vasoft\Core\Settings\Entities\Fields;
 
 use Vasoft\Core\Settings\Field;
 
 /**
- * Вывод разделителя
+ * Вывод разделителя.
  */
 class SeparatorField extends Field
 {
@@ -17,7 +18,7 @@ class SeparatorField extends Field
         parent::__construct(
             sprintf('SEP_%d', self::$index++),
             '',
-            static fn() => null
+            static fn() => null,
         );
     }
 

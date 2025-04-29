@@ -1,8 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Vasoft\Core\Exceptions;
 
-use Exception;
-
-abstract class ModuleException extends Exception {
-
-}
+abstract class ModuleException extends \Exception {}

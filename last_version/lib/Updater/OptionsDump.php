@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Updater;
 
 use Bitrix\Main\ArgumentNullException;
@@ -12,17 +14,21 @@ class OptionsDump
     private string $baseDir;
 
     public function __construct(
-        string                    $baseDir = '',
-        protected readonly string $fileNameTemplate = '#MODULE_ID#_#TIME#'
-    )
-    {
-        $this->baseDir = rtrim($baseDir === '' ? $_SERVER['DOCUMENT_ROOT'] : $baseDir, " \t\n\r\0\x0B" . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        string $baseDir = '',
+        protected readonly string $fileNameTemplate = '#MODULE_ID#_#TIME#',
+    ) {
+        $this->baseDir = rtrim(
+            '' === $baseDir ? $_SERVER['DOCUMENT_ROOT'] : $baseDir,
+            " \t\n\r\0\x0B" . \DIRECTORY_SEPARATOR,
+        ) . \DIRECTORY_SEPARATOR;
     }
 
     /**
-     * Настройки класса конфигурации модуля в php файл
+     * Настройки класса конфигурации модуля в php файл.
+     *
      * @param ModuleSettings $settings Объект конфигурации
-     * @param array $filter Массив символьных кодов настроек, которы необходимо исключить
+     * @param array          $filter   Массив символьных кодов настроек, которы необходимо исключить
+     *
      * @throws ArgumentNullException
      */
     public function dumpSettings(ModuleSettings $settings, array $filter = []): void
@@ -30,33 +36,35 @@ class OptionsDump
         $this->dump(
             $settings->moduleCode,
             $this->getFileName($settings->moduleCode, $this->fileNameTemplate),
-            $filter, $settings->siteId
+            $filter,
+            $settings->siteId,
         );
     }
 
     public function getFileName(string $moduleId, string $template): string
     {
         return $this->baseDir . str_replace(
-                ['#MODULE_ID#', '#TIME#'],
-                [$moduleId, date('YmdHis')],
-                $template
-            );
+            ['#MODULE_ID#', '#TIME#'],
+            [$moduleId, date('YmdHis')],
+            $template,
+        );
     }
 
     /**
-     * Настройки модуля в php файл
-     * @param string $moduleId Идентификатор модуля
-     * @param string $fileName
-     * @param array $filter Массив символьных кодов настроек, которы необходимо исключить
-     * @param string|false $siteId Идентификатор сайта или false для сайта по умолчанию
+     * Настройки модуля в php файл.
+     *
+     * @param string       $moduleId Идентификатор модуля
+     * @param array        $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param false|string $siteId   Идентификатор сайта или false для сайта по умолчанию
+     *
      * @throws ArgumentNullException
      */
-    public function dump(string $moduleId, string $fileName, array $filter = [], string|false $siteId = false): void
+    public function dump(string $moduleId, string $fileName, array $filter = [], false|string $siteId = false): void
     {
-//        OptionCacheCleaner::clearModuleCache($moduleId);
+        //        OptionCacheCleaner::clearModuleCache($moduleId);
         $options = Option::getForModule($moduleId, $siteId);
         $options = array_diff_key($options, array_flip($filter));
-        $file = fopen($fileName . '.php', 'wb');
+        $file = fopen($fileName . '.php', 'w');
         if ($file) {
             fwrite($file, '<?php' . PHP_EOL);
             fwrite($file, '$options = ' . var_export($options, true) . ';' . PHP_EOL);
@@ -65,16 +73,21 @@ class OptionsDump
     }
 
     /**
-     * Восстановление настроек модуля из php файла
+     * Восстановление настроек модуля из php файла.
+     *
      * @param ModuleSettings $settings Идентификатор модуля
-     * @param string $fileName
-     * @param array $filter Массив символьных кодов настроек, которы необходимо исключить
-     * @param bool $backup Выполнять бекап
+     * @param array          $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param bool           $backup   Выполнять бекап
+     *
      * @throws ArgumentNullException
      * @throws ArgumentOutOfRangeException
      */
-    public function restoreSettings(ModuleSettings $settings, string $fileName, array $filter = [], bool $backup = true): void
-    {
+    public function restoreSettings(
+        ModuleSettings $settings,
+        string $fileName,
+        array $filter = [],
+        bool $backup = true,
+    ): void {
         if (file_exists($fileName)) {
             $options = [];
             include $fileName;
@@ -83,7 +96,8 @@ class OptionsDump
                 $this->dump(
                     $settings->moduleCode,
                     $this->getFileName($settings->moduleCode, '#MODULE_ID#-#TIME#-bkp'),
-                    [], $settings->siteId
+                    [],
+                    $settings->siteId,
                 );
             }
             $settings->saveFromArray($options);
@@ -91,17 +105,23 @@ class OptionsDump
     }
 
     /**
-     * Восстановление настроек модуля из php файла
-     * @param string $moduleId Идентификатор модуля
-     * @param string $fileName
-     * @param array $filter Массив символьных кодов настроек, которы необходимо исключить
-     * @param string|bool $siteId Идентификатор сайта или false для сайта по умолчанию
-     * @param bool $backup Выполнять бекап
+     * Восстановление настроек модуля из php файла.
+     *
+     * @param string      $moduleId Идентификатор модуля
+     * @param array       $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param bool|string $siteId   Идентификатор сайта или false для сайта по умолчанию
+     * @param bool        $backup   Выполнять бекап
+     *
      * @throws ArgumentNullException
      * @throws ArgumentOutOfRangeException
      */
-    public function restore(string $moduleId, string $fileName, array $filter = [], string|bool $siteId = false, bool $backup = true): void
-    {
+    public function restore(
+        string $moduleId,
+        string $fileName,
+        array $filter = [],
+        bool|string $siteId = false,
+        bool $backup = true,
+    ): void {
         if (file_exists($fileName)) {
             $options = [];
             include_once $fileName;
@@ -110,13 +130,14 @@ class OptionsDump
                 $this->dump(
                     $moduleId,
                     $this->getFileName($moduleId, '#MODULE_ID#-#TIME#-bkp'),
-                    [], $siteId
+                    [],
+                    $siteId,
                 );
             }
             foreach ($options as $key => $value) {
                 Option::set($moduleId, $key, $value, $siteId);
             }
-            //OptionCacheCleaner::clearModuleCache($moduleId);
+            // OptionCacheCleaner::clearModuleCache($moduleId);
         }
     }
 }

@@ -9,3 +9,4 @@
 /.vs-mock-builder.local.php
 /bx/
 /var/
+.mock-builder-cache

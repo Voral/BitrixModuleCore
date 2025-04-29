@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /** @noinspection PhpPropertyOnlyWrittenInspection */
 
 namespace Vasoft\Core\Settings;
@@ -6,11 +8,7 @@ namespace Vasoft\Core\Settings;
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\ArgumentOutOfRangeException;
 use Bitrix\Main\Config\Option;
-use Bitrix\Main\Diag\Debug;
 use Bitrix\Main\Localization\Loc;
-use Exception;
-use LogicException;
-use ReflectionClass;
 
 abstract class ModuleSettings
 {
@@ -25,43 +23,43 @@ abstract class ModuleSettings
 
     private bool $langLoaded = false;
 
-    /** @var ReflectionClass[] */
+    /** @var \ReflectionClass[] */
     private static array $reflections = [];
 
     /**
      * @param string $moduleCode Символьный код модуля
-     * @param bool $sendThrow Выбрасывать исключения при запросе параметров, для которых не заданы значения
+     * @param bool   $sendThrow  Выбрасывать исключения при запросе параметров, для которых не заданы значения
+     *
      * @throws ArgumentNullException
      */
     protected function __construct(
-        public readonly string  $moduleCode,
+        public readonly string $moduleCode,
         protected readonly bool $sendThrow = true,
-        public readonly string  $siteId = ''
-    )
-    {
+        public readonly string $siteId = '',
+    ) {
         $this->reload();
     }
 
     final protected function __clone()
     {
-        /**
-         * @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
-         */
+        // @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    final public function __wakeup()
+    final public function __wakeup(): void
     {
-        throw new LogicException('Cannot unserialize a singleton.');
+        throw new \LogicException('Cannot unserialize a singleton.');
     }
 
     /**
      * @param string $moduleCode Символьный код модуля
-     * @param bool $sendThrow Выбрасывать исключения при запросе параметров, для которых не заданы значения
-     * @param string $siteId Идентификатор сайта
+     * @param bool   $sendThrow  Выбрасывать исключения при запросе параметров, для которых не заданы значения
+     * @param string $siteId     Идентификатор сайта
+     *
      * @return ModuleSettings
+     *
      * @throws ArgumentNullException
      */
     protected static function initInstance(string $moduleCode, bool $sendThrow = true, string $siteId = ''): static
@@ -70,13 +68,15 @@ abstract class ModuleSettings
         if (!array_key_exists($index, self::$instance)) {
             self::$instance[$index] = new static($moduleCode, $sendThrow, $siteId);
         }
+
         return self::$instance[$index];
     }
 
     abstract public static function getInstance(bool $sendThrow = true): static;
 
     /**
-     * Загрузка значений из базы
+     * Загрузка значений из базы.
+     *
      * @throws ArgumentNullException
      */
     public function reload(): void
@@ -85,9 +85,8 @@ abstract class ModuleSettings
     }
 
     /**
-     * Установка значения для параметра
-     * @param $key
-     * @param $value
+     * Установка значения для параметра.
+     *
      * @throws ArgumentOutOfRangeException
      */
     public function set($key, $value): void
@@ -99,13 +98,13 @@ abstract class ModuleSettings
 
     /**
      * Возвращает
-     * @return array
      */
     protected function getNormalizers(): array
     {
         if (empty($this->normalizer)) {
             $this->initNormalizers();
         }
+
         return $this->normalizer;
     }
 
@@ -113,15 +112,11 @@ abstract class ModuleSettings
      * Заполнение массива нормализатров.
      * Ключ - символьный код параметра
      * Значение - callable принимающий один параметр
-     * @return void
      */
     abstract protected function initNormalizers(): void;
 
     /**
      * Выполнение нормализации значения согласно настройкам
-     * @param string $key
-     * @param mixed $value
-     * @return string
      */
     protected function normalize(string $key, mixed $value): string
     {
@@ -129,6 +124,7 @@ abstract class ModuleSettings
         if (array_key_exists($key, $normalizers)) {
             $value = ($normalizers[$key])($value);
         }
+
         return $value;
     }
 
@@ -139,25 +135,27 @@ abstract class ModuleSettings
             $this->registeredProperties = array_filter(
                 $reflection->getConstants(),
                 static fn($key) => str_starts_with($key, 'PROP_'),
-                ARRAY_FILTER_USE_KEY
+                ARRAY_FILTER_USE_KEY,
             );
         }
+
         return $this->registeredProperties;
     }
 
-
-    public function getReflection(): ReflectionClass
+    public function getReflection(): \ReflectionClass
     {
         if (!isset(static::$reflections[static::class])) {
             static::$reflections[static::class] = new \ReflectionClass(static::class);
         }
+
         return static::$reflections[static::class];
     }
 
     /**
      * Сохранение параметров из массива.
+     *
      * @param array $data Массив значений, ключ - символьный код параметра
-     * @return void
+     *
      * @throws ArgumentNullException
      * @throws ArgumentOutOfRangeException
      */
@@ -173,9 +171,7 @@ abstract class ModuleSettings
     }
 
     /**
-     * Получение наименование параметра
-     * @param string $code
-     * @return string
+     * Получение наименование параметра.
      */
     public function getOptionName(string $code): string
     {
@@ -184,6 +180,7 @@ abstract class ModuleSettings
             Loc::loadMessages($reflection->getFileName());
             $this->langLoaded = true;
         }
+
         return trim(Loc::getMessage($code));
     }
 

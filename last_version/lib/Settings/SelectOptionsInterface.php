@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Settings;
 
 interface SelectOptionsInterface
@@ -8,16 +10,12 @@ interface SelectOptionsInterface
     public static function getList(): array;
 
     /**
-     * Проверка допустимости значения
-     * @param string|int $value
-     * @return bool
+     * Проверка допустимости значения.
      */
-    public static function valid(string|int $value): bool;
+    public static function valid(int|string $value): bool;
 
     /**
-     * Возвращает описание опции
-     * @return string
+     * Возвращает описание опции.
      */
     public function caption(): string;
-
 }

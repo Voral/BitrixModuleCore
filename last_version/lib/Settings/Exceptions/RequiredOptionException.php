@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Settings\Exceptions;
 
 use Bitrix\Main\Localization\Loc;
@@ -9,9 +11,8 @@ class RequiredOptionException extends ModuleException
 {
     public function __construct(
         string $code,
-        string $name
-    )
-    {
+        string $name,
+    ) {
         parent::__construct(sprintf(Loc::getMessage('REQUIRED_OPTION_EXCEPTION'), $name, $code));
     }
 }

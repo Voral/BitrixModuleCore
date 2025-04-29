@@ -1,4 +1,7 @@
-<?php /** @noinspection PhpUnused */
+<?php
+
+declare(strict_types=1);
+/** @noinspection PhpUnused */
 
 namespace Vasoft\Core\Updater\Example;
 
@@ -8,15 +11,14 @@ use Bitrix\Main\EventResult;
 class DependencyHandler
 {
     /**
-     * Предотвращение удаления модуля vasoft.core
-     * @param Event $event
-     * @return EventResult
+     * Предотвращение удаления модуля vasoft.core.
+     *
      * @noinspection PhpUnusedParameterInspection
      * @noinspection PhpUnused
      */
     public static function onBeforeRemoveVasoftCore(Event $event): EventResult
     {
-        /**
+        /*
          * Возвращаем наименование модуля вторым параметром
          * И идентификатор модуля третьим
          */

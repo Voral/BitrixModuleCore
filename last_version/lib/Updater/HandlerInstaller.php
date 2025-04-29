@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Vasoft\Core\Updater;
 
 use Bitrix\Main\Application;
@@ -13,22 +15,21 @@ class HandlerInstaller
 
     public function __construct(
         public readonly string $moduleId,
-        array                  $handlers
-    )
-    {
+        array $handlers,
+    ) {
         $this->handlers = array_map(static fn(HandlerDto $dto) => [
             'FROM_MODULE_ID' => $dto->emmitModuleId,
             'MESSAGE_ID' => $dto->messageId,
             'TO_CLASS' => $dto->receiverClass,
-            'TO_METHOD' => $dto->receiverMethod
+            'TO_METHOD' => $dto->receiverMethod,
         ], $handlers);
         $this->manager = EventManager::getInstance();
     }
 
     /**
      * Проверка обработчиков событий.
-     * Создает обработчики, которых нет, и удаляет те, которые устарели
-     * @return void
+     * Создает обработчики, которых нет, и удаляет те, которые устарели.
+     *
      * @throws SqlQueryException
      */
     public function check(): void
@@ -40,9 +41,10 @@ class HandlerInstaller
         array_walk($create, [$this, 'register']);
         array_walk($delete, [$this, 'unregister']);
     }
+
     /**
-     * Удаление всех обработчиков модуля
-     * @return void
+     * Удаление всех обработчиков модуля.
+     *
      * @throws SqlQueryException
      */
     public function clean(): void
@@ -58,7 +60,7 @@ class HandlerInstaller
             $data['MESSAGE_ID'],
             $this->moduleId,
             $data['TO_CLASS'],
-            $data['TO_METHOD']
+            $data['TO_METHOD'],
         );
     }
 
@@ -69,7 +71,7 @@ class HandlerInstaller
             $data['MESSAGE_ID'],
             $this->moduleId,
             $data['TO_CLASS'],
-            $data['TO_METHOD']
+            $data['TO_METHOD'],
         );
     }
 
@@ -81,12 +83,13 @@ class HandlerInstaller
             $curry['TO_CLASS'],
             $curry['TO_METHOD'],
         ])] = $curry;
+
         return $result;
     }
 
     /**
-     * @return array
      * @throws SqlQueryException
+     *
      * @noinspection SqlResolve
      * @noinspection SqlNoDataSourceInspection
      * @noinspection SqlDialectInspection
@@ -94,10 +97,13 @@ class HandlerInstaller
     private function getExists(): array
     {
         $con = Application::getConnection();
-        $rs = $con->query(sprintf(
-            "SELECT FROM_MODULE_ID, MESSAGE_ID, SORT, TO_CLASS, TO_METHOD  FROM b_module_to_module	WHERE TO_MODULE_ID = '%s'",
-            $this->moduleId
-        ));
+        $rs = $con->query(
+            sprintf(
+                "SELECT FROM_MODULE_ID, MESSAGE_ID, SORT, TO_CLASS, TO_METHOD  FROM b_module_to_module	WHERE TO_MODULE_ID = '%s'",
+                $this->moduleId,
+            ),
+        );
+
         return $rs->fetchAll();
     }
 }
