@@ -1,7 +1,14 @@
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
+
+# Параметры PHPStan
 parameters:
+    bootstrapFiles:
+        - phpstan-bootstrap.php
     excludePaths:
         - tests
     level: 1
+
+# Bootstrap файл для загрузки моков или других зависимостей
+# bootstrap: phpstan-bootstrap.php
