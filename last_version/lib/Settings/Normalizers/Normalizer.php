@@ -24,4 +24,26 @@ class Normalizer
     {
         return trim($value);
     }
+
+    /**
+     * Нормализация строки разделяемой запятыми
+     * @param string $value
+     * @return string
+     */
+    public static function normalizeCommaSeparatedString(string $value): string
+    {
+        $value = preg_replace('# ?, ?#', ',', $value);
+        return trim($value);
+    }
+    /**
+     * Нормализация строки содержащей целые числа разделяемые запятыми
+     * @param string $value
+     * @return string
+     */
+    public static function normalizeCommaSeparatedInteger(string $value): string
+    {
+        $values = explode(',', static::normalizeCommaSeparatedString($value));
+
+        return implode(',', array_map('intval', $values));
+    }
 }
