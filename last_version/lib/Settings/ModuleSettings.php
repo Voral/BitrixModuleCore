@@ -68,6 +68,7 @@ abstract class ModuleSettings
     {
         $index = $moduleCode . $siteId;
         if (!array_key_exists($index, self::$instance)) {
+            // @phpstan-ignore-next-line
             self::$instance[$index] = new static($moduleCode, $sendThrow, $siteId);
         }
 

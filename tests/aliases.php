@@ -46,7 +46,6 @@ class_alias('Bitrix\Main\ORM\Data\UpdateResult', 'Bitrix\Main\Entity\UpdateResul
 class_alias('Bitrix\Main\ORM\Data\DeleteResult', 'Bitrix\Main\Entity\DeleteResult');
 
 class_alias('Bitrix\Main\ORM\Query\Filter\Condition', 'Bitrix\Main\Entity\Query\Filter\Condition');
-//class_alias('Bitrix\Main\ORM\Query\Filter\ConditionTree', 'Bitrix\Main\Entity\Query\Filter\ConditionTree');
 class_alias('Bitrix\Main\ORM\Query\Filter\Helper', 'Bitrix\Main\Entity\Query\Filter\Helper');
 class_alias('Bitrix\Main\ORM\Query\Filter\Operator', 'Bitrix\Main\Entity\Query\Filter\Operator');
 
@@ -59,8 +58,6 @@ class_alias('Bitrix\Main\ORM\Entity', 'Bitrix\Main\Entity\Base');
 class_alias('Bitrix\Main\ORM\EntityError', 'Bitrix\Main\Entity\EntityError');
 class_alias('Bitrix\Main\ORM\Event', 'Bitrix\Main\Entity\Event');
 class_alias('Bitrix\Main\ORM\EventResult', 'Bitrix\Main\Entity\EventResult');
-
-class_alias('Bitrix\Main\Entity\UField', 'Bitrix\Main\ORM\UField');
 
 class_alias('Bitrix\Main\Data\CacheEngineInterface', 'Bitrix\Main\Data\ICacheEngine');
 class_alias('Bitrix\Main\Data\CacheEngineStatInterface', 'Bitrix\Main\Data\ICacheEngineStat');
