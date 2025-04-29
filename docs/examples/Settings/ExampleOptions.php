@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vasoft\Core\Settings\Example;
+namespace Vendor\Example\Settings;
 
 use Vasoft\Core\Settings\SelectOptions;
 use Vasoft\Core\Settings\SelectOptionsInterface;

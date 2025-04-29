@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vasoft\Core\Settings\Example;
-
+namespace Vendor\Example\Settings;
 class ExampleOptionNormalizer
 {
     public static function normalize(mixed $value): string

@@ -14,8 +14,6 @@ use Bitrix\Main;
 use Bitrix\Main\Localization\Loc;
 use Vasoft\Core\Settings\Entities\Fields;
 use Vasoft\Core\Settings\Entities\Tab;
-use Vasoft\Core\Settings\Example\ExampleModuleSettings;
-use Vasoft\Core\Settings\Example\ExampleOptions;
 use Vasoft\Core\Settings\Render\Controller;
 
 Loc::loadMessages(__FILE__);

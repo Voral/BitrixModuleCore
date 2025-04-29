@@ -7,21 +7,17 @@ declare(strict_types=1);
  * с параметром options - экспорт/импорт настроек.
  */
 
-// @noinspection PhpDefineCanBeReplacedWithConstInspection
-
-// @noinspection DuplicatedCode
+namespace Vendor\Example\updater;
 
 use Bitrix\Main\Loader;
-use Vasoft\Core\Settings\Example\ExampleModuleSettings;
-use Vasoft\Core\Updater\Example\DependencyHandler;
-use Vasoft\Core\Updater\Example\ExampleTable;
 use Vasoft\Core\Updater\FileInstaller;
 use Vasoft\Core\Updater\HandlerDto;
 use Vasoft\Core\Updater\HandlerInstaller;
 use Vasoft\Core\Updater\OptionsDump;
 use Vasoft\Core\Updater\TableInstaller;
+use Vendor\Example\Settings\ExampleModuleSettings;
 
-if (PHP_SAPI !== 'cli') {
+if (\PHP_SAPI !== 'cli') {
     exit;
 }
 $mode = trim($argv[1] ?? 'remove');

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 /** @noinspection PhpUnused */
 
-namespace Vasoft\Core\Updater\Example;
+namespace Vendor\Example\updater;
 
 use Bitrix\Main\Event;
 use Bitrix\Main\EventResult;

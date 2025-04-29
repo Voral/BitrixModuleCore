@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vasoft\Core\Updater\Example;
+namespace Vendor\Example\Updater;
 
 use Bitrix\Main\Entity;
 

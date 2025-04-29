@@ -3,7 +3,7 @@
 declare(strict_types=1);
 /** @noinspection PhpUnused */
 
-namespace Vasoft\Core\Settings\Example;
+namespace Vendor\Example\Settings;
 
 use Bitrix\Main\ArgumentNullException;
 use Vasoft\Core\Settings\Exceptions\RequiredOptionException;
