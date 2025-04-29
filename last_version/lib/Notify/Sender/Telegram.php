@@ -1,0 +1,66 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Vasoft\Core\Notify\Sender;
+
+use Vasoft\Core\Notify\Contract\SendService;
+
+/**
+ * Сервис отправки сообщений в телеграмм
+ */
+class Telegram implements SendService
+{
+    public const URL_TEMPLATE = 'https://api.telegram.org/bot%s/';
+    public const URL_SEND_MESSAGE = 'sendMessage';
+
+    /**
+     * @param string $token  Token пользователя
+     * @param string $chatId Идентификатор чата
+     */
+    public function __construct(
+        private readonly string $token,
+        private readonly string $chatId,
+    ) {}
+
+    public function send(array $messageStrings): array
+    {
+        if (empty($this->token) || empty($this->chatId)) {
+            return [];
+        }
+
+        return $this->push($this->render($messageStrings));
+    }
+
+    private function push(string $message): array
+    {
+        $url = sprintf(self::URL_TEMPLATE, $this->token) . self::URL_SEND_MESSAGE;
+        $data = [
+            'chat_id' => $this->chatId,
+            'text' => $message,
+        ];
+
+        return json_decode(
+            file_get_contents(
+                $url,
+                false,
+                stream_context_create([
+                    'http' => [
+                        'method' => 'POST',
+                        'header' => 'Content-type: application/json',
+                        'content' => json_encode($data),
+                    ],
+                ]),
+            ),
+            true,
+        );
+    }
+
+    private function render($messageStrings): string
+    {
+        $message = implode("\r\n", $messageStrings);
+        $message = preg_replace('#<br\s*/?>#i', "\r\n", $message);
+
+        return strip_tags($message);
+    }
+}

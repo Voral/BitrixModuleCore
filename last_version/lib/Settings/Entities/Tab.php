@@ -37,7 +37,6 @@ final class Tab
         if ('' !== $this->onSelectJs) {
             $result['ONSELECT'] = $this->onSelectJs;
         }
-
         return $result;
     }
 }

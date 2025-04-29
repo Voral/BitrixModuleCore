@@ -11,9 +11,13 @@ $local = __DIR__ . '/.vs-mock-builder.local.php';
 if (file_exists($local)) {
     $basePaths = require_once $local;
 }
+
 return [
     'basePath' => $basePaths,
     'targetPath' => __DIR__ . '/bx/',
+    'resultTypes' => [
+        'Bitrix\Main\Config\Configuration::get' => 'mixed',
+    ],
     'visitors' => [
         new PublicAndConstFilter(true),
         new SetReturnTypes('8.1', true),

@@ -61,8 +61,6 @@ abstract class ModuleSettings
      * @return ModuleSettings
      *
      * @throws ArgumentNullException
-     *
-     * @noinspection PhpUnhandledExceptionInspection
      */
     protected static function initInstance(string $moduleCode, bool $sendThrow = true, string $siteId = ''): static
     {

@@ -11,3 +11,5 @@
 /var/
 .mock-builder-cache
 test.php
+reports
+.phpunit.result.cache
