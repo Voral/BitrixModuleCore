@@ -18,6 +18,10 @@ return [
     'resultTypes' => [
         'Bitrix\Main\Config\Configuration::get' => 'mixed',
         'Bitrix\Main\ORM\Query\Query::fetchCollection' => '\Bitrix\Main\ORM\Objectify\Collection',
+        'Bitrix\Main\EventResult::getParameters' => 'mixed',
+        'Bitrix\Main\EventResult::getModuleId' => 'string',
+        'Bitrix\Main\EventResult::getType' => 'int',
+        'Bitrix\Main\ORM\Data\DataManager::query' => '\Bitrix\Main\ORM\Query\Query',
     ],
     'visitors' => [
         new PublicAndConstFilter(true),
