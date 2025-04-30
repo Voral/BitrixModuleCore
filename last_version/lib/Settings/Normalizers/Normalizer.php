@@ -7,20 +7,22 @@ namespace Vasoft\Core\Settings\Normalizers;
 
 class Normalizer
 {
-    public static function normalizeInt(string $value): int
+    public static function normalizeInt(int|string $value): string
     {
-        return (int) $value;
+        return (string) (int) $value;
     }
 
-    public static function normalizeNotZeroInt(string $value): int|string
+    public static function normalizeNotZeroInt(int|string $value): string
     {
         $valueNormalized = (int) $value;
 
-        return 0 === $valueNormalized ? '' : $valueNormalized;
+        return 0 === $valueNormalized ? '' : (string) $valueNormalized;
     }
 
     public static function normalizeBoolean(string $value): string
     {
+        $value = strtoupper(trim($value));
+
         return 'Y' === $value ? 'Y' : 'N';
     }
 
@@ -34,9 +36,9 @@ class Normalizer
      */
     public static function normalizeCommaSeparatedString(string $value): string
     {
-        $value = preg_replace('# ?, ?#', ',', $value);
+        $value = preg_replace('# *, *#', ',', $value);
 
-        return trim($value);
+        return trim($value, " \t\n\r\0\x0B,");
     }
 
     /**
@@ -44,8 +46,8 @@ class Normalizer
      */
     public static function normalizeCommaSeparatedInteger(string $value): string
     {
-        $values = explode(',', static::normalizeCommaSeparatedString($value));
+        preg_match_all('/\b\d+\b/', $value, $matches);
 
-        return implode(',', array_map('intval', $values));
+        return implode(',', $matches[0]);
     }
 }

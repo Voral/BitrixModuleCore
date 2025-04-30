@@ -7,11 +7,16 @@ namespace Vasoft\Core\Settings\Entities\Fields;
 use Bitrix\Main\Localization\Loc;
 use Vasoft\Core\Settings\Field;
 
+/**
+ * Поле типа Булево.
+ *
+ * Хранит данные как строку "Y" и "N" и выводит в формате радио-кнопок.
+ */
 class BooleanField extends Field
 {
     public function renderInput(): string
     {
-        $value = ($this->getter)();
+        $value = strtoupper(($this->getter)());
         $checkedYes = 'Y' === $value ? ' checked' : '';
         $checkedNo = 'Y' !== $value ? ' checked' : '';
         $yesLabel = Loc::getMessage('BOOL_FIELD_YES');

@@ -17,6 +17,7 @@ return [
     'targetPath' => __DIR__ . '/bx/',
     'resultTypes' => [
         'Bitrix\Main\Config\Configuration::get' => 'mixed',
+        'Bitrix\Main\ORM\Query\Query::fetchCollection' => '\Bitrix\Main\ORM\Objectify\Collection',
     ],
     'visitors' => [
         new PublicAndConstFilter(true),

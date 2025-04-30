@@ -42,7 +42,7 @@ abstract class ModuleSettings
 
     final protected function __clone()
     {
-        // @SuppressWarnings("PMD.UncommentedEmptyMethodBody")
+        throw new \LogicException('Cannot clone a singleton.');
     }
 
     /**
@@ -129,7 +129,7 @@ abstract class ModuleSettings
             $value = ($normalizers[$key])($value);
         }
 
-        return $value;
+        return (string) $value;
     }
 
     protected function getProperties(): array
@@ -185,7 +185,7 @@ abstract class ModuleSettings
             $this->langLoaded = true;
         }
 
-        return trim(Loc::getMessage($code));
+        return trim((string) Loc::getMessage($code));
     }
 
     public function clean(): void

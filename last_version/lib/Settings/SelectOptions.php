@@ -23,6 +23,9 @@ trait SelectOptions
         return $result;
     }
 
+    /**
+     * Метода для проверки валидности значения, например, в нормализатре.
+     */
     public static function valid(int|string $value): bool
     {
         return (bool) self::tryFrom($value);

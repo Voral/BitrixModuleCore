@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings\Render;
 
 use Vasoft\Core\Settings\Entities\Tab;
+use Bitrix\Main\Localization\Loc;
 
 class Controller
 {
@@ -26,8 +27,8 @@ class Controller
         if ($this->needRightsTab) {
             $tabs[] = [
                 'DIV' => 'rights',
-                'TAB' => GetMessage('MAIN_TAB_RIGHTS'),
-                'TITLE' => GetMessage('MAIN_TAB_TITLE_RIGHTS'),
+                'TAB' => Loc::getMessage('MAIN_TAB_RIGHTS'),
+                'TITLE' => Loc::getMessage('MAIN_TAB_TITLE_RIGHTS'),
             ];
         }
         $tabControl = new \CAdminTabControl($tabControlName, $tabs);

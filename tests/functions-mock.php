@@ -1,18 +1,19 @@
 <?php
 
 declare(strict_types=1);
+use Bitrix\Mocker\FunctionMocker;
 
 function BeginNote(): string
 {
-    return '<note>';
+    return FunctionMocker::executeMocked('BeginNote', []);
 }
 
 function EndNote(): string
 {
-    return '</note>';
+    return FunctionMocker::executeMocked('EndNote', []);
 }
 
 function GetMessage($name, $aReplace = null): string
 {
-    return 'Message';
+    return FunctionMocker::executeMocked('GetMessage', [$name, $aReplace]);
 }

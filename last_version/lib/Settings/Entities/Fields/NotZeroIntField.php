@@ -11,11 +11,11 @@ class NotZeroIntField extends TextField
 {
     public function renderInput(): string
     {
-        $value = (int) htmlspecialchars(($this->getter)());
+        $value = (int) ($this->getter)();
         if (0 === $value) {
             $value = '';
         }
 
-        return $this->renderInputAndValue($value);
+        return $this->renderInputAndValue((string) $value);
     }
 }
