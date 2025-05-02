@@ -22,6 +22,7 @@ return [
         'Bitrix\Main\EventResult::getModuleId' => 'string',
         'Bitrix\Main\EventResult::getType' => 'int',
         'Bitrix\Main\ORM\Data\DataManager::query' => '\Bitrix\Main\ORM\Query\Query',
+        'Bitrix\Main\ORM\Entity::getDBTableName' => 'string',
     ],
     'visitors' => [
         new PublicAndConstFilter(true),

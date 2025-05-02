@@ -1,14 +1,14 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Vasoft\Core\Updater;
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\DB\Connection;
-use Bitrix\Main\Entity\Base;
+use Bitrix\Main\Diag\Debug;
+use Bitrix\Main\ORM\Entity;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\SystemException;
@@ -37,8 +37,9 @@ class TableInstaller
      */
     public function check(): void
     {
+
         foreach ($this->tables as $tableClass) {
-            $instance = Base::getInstance($tableClass);
+            $instance = Entity::getInstance($tableClass);
             if (!$this->connection->isTableExists($instance->getDBTableName())) {
                 $instance->createDbTable();
             }
