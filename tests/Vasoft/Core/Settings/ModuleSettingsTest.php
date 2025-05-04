@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings;
 
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Vasoft\Core\Settings\Exceptions\RequiredOptionException;
 use Vasoft\Core\Settings\Normalizers\Normalizer;
@@ -19,7 +20,7 @@ final class ModuleSettingsTest extends TestCase
 {
     public function testSaveFromArray(): void
     {
-        Option::cleanMockData('getForModule', defaultResult: []);
+        Option::cleanMockData('getForModule', defaultDefinition: new MockDefinition(result: []));
         Option::cleanMockData('set');
 
         $settings = FirstModuleSettings::getInstance(siteId: __METHOD__);
@@ -42,7 +43,7 @@ final class ModuleSettingsTest extends TestCase
 
     public function testMultiple(): void
     {
-        Option::cleanMockData('getForModule', defaultResult: []);
+        Option::cleanMockData('getForModule', defaultDefinition: new MockDefinition(result: []));
 
         $settings = FirstModuleSettings::getInstance(false, __METHOD__);
         $settings2 = FirstModuleSettings::getInstance(false, __METHOD__);
@@ -53,13 +54,18 @@ final class ModuleSettingsTest extends TestCase
     {
         Option::cleanMockData(
             'getForModule',
-            defaultResult: ['EXAMPLE_STRING' => 'Example value', 'EXAMPLE_INT' => 123],
+            defaultDefinition: new MockDefinition(result: ['EXAMPLE_STRING' => 'Example value', 'EXAMPLE_INT' => 123]),
         );
         Option::cleanMockData('delete');
-        Loc::cleanMockData('getMessage', [
-            Loc::paramHash(['REQUIRED_OPTION_EXCEPTION', null, null]) => 'Name: "%s" Code: "%s"',
-            Loc::paramHash(['EXAMPLE_INT', null, null]) => 'Example value',
-        ], defaultResult: '', namedMode: true);
+
+        $definition1 = new MockDefinition(['REQUIRED_OPTION_EXCEPTION'], result: 'Name: "%s" Code: "%s"');
+        $definition2 = new MockDefinition(['EXAMPLE_INT'], result: 'Example value');
+        Loc::cleanMockData(
+            'getMessage',
+            [$definition1, $definition2,],
+            defaultDefinition: new MockDefinition(result: ''),
+            namedMode: true
+        );
 
         $settings = FirstModuleSettings::getInstance(false, __METHOD__);
         $settings2 = FirstModuleSettings::getInstance(false, __METHOD__ . 'ext');
@@ -76,13 +82,18 @@ final class ModuleSettingsTest extends TestCase
     {
         Option::cleanMockData(
             'getForModule',
-            defaultResult: ['EXAMPLE_STRING' => 'Example value', 'EXAMPLE_INT' => 123],
+            defaultDefinition: new MockDefinition(result: ['EXAMPLE_STRING' => 'Example value', 'EXAMPLE_INT' => 123]),
         );
         Option::cleanMockData('delete');
-        Loc::cleanMockData('getMessage', [
-            Loc::paramHash(['REQUIRED_OPTION_EXCEPTION', null, null]) => 'Name: "%s" Code: "%s"',
-            Loc::paramHash(['EXAMPLE_INT', null, null]) => 'Example value',
-        ], defaultResult: '', namedMode: true);
+
+        $definition1 = new MockDefinition(['REQUIRED_OPTION_EXCEPTION'], result: 'Name: "%s" Code: "%s"');
+        $definition2 = new MockDefinition(['EXAMPLE_INT'], result: 'Example value');
+        Loc::cleanMockData(
+            'getMessage',
+            [$definition1, $definition2,],
+            defaultDefinition: new MockDefinition(result: ''),
+            namedMode: true
+        );
 
         $settings = FirstModuleSettings::getInstance(siteId: __METHOD__);
         self::assertSame(123, $settings->getExampleInt());
@@ -94,7 +105,7 @@ final class ModuleSettingsTest extends TestCase
 
     public function testSetAndNormalize(): void
     {
-        Option::cleanMockData('getForModule', defaultResult: []);
+        Option::cleanMockData('getForModule', defaultDefinition: new MockDefinition(result: []));
         Option::cleanMockData('set');
 
         $settings = FirstModuleSettings::getInstance(siteId: __METHOD__);
@@ -109,7 +120,7 @@ final class ModuleSettingsTest extends TestCase
 
     public function testWakeupMethodIsFinal(): void
     {
-        Option::cleanMockData('getForModule', defaultResult: []);
+        Option::cleanMockData('getForModule', defaultDefinition: new MockDefinition(result: []));
 
         $reflection = new \ReflectionClass(objectOrClass: FirstModuleSettings::class);
         $wakeupMethod = $reflection->getMethod('__wakeup');
@@ -123,7 +134,7 @@ final class ModuleSettingsTest extends TestCase
 
     public function testCannotCloneInstance(): void
     {
-        Option::cleanMockData('getForModule', defaultResult: []);
+        Option::cleanMockData('getForModule', defaultDefinition: new MockDefinition(result: []));
 
         $reflection = new \ReflectionClass(FirstModuleSettings::class);
 
@@ -185,7 +196,7 @@ class FirstModuleSettings extends ModuleSettings
             return 0;
         }
 
-        return (int) $this->options[self::PROP_EXAMPLE_INT];
+        return (int)$this->options[self::PROP_EXAMPLE_INT];
     }
 
     public function getExampleString(): string

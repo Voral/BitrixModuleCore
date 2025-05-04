@@ -23,6 +23,7 @@ return [
         'Bitrix\Main\EventResult::getType' => 'int',
         'Bitrix\Main\ORM\Data\DataManager::query' => '\Bitrix\Main\ORM\Query\Query',
         'Bitrix\Main\ORM\Entity::getDBTableName' => 'string',
+        'Bitrix\Main\ORM\Fields\Relations\Reference::validateValue' => '\Bitrix\Main\ORM\Fields\Result',
     ],
     'visitors' => [
         new PublicAndConstFilter(true),

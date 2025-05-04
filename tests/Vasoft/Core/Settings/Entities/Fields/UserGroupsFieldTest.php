@@ -8,6 +8,7 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Objectify\Collection;
 use Bitrix\Main\ORM\Query\Query;
+use Bitrix\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -19,13 +20,12 @@ final class UserGroupsFieldTest extends TestCase
 {
     public function testRenderInputEmpty(): void
     {
-        Loc::cleanMockData('getMessage', defaultResult: 'Not selected');
-
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'Not selected'));
         $elements = [];
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultResult: $queryMock);
+        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -58,12 +58,12 @@ final class UserGroupsFieldTest extends TestCase
 
     public function testRenderNotSelected(): void
     {
-        Loc::cleanMockData('getMessage', defaultResult: 'Not selected');
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'Not selected'));
         $elements = [new TestGroup(), new TestGroup()];
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultResult: $queryMock);
+        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -91,12 +91,12 @@ final class UserGroupsFieldTest extends TestCase
 
     public function testRenderSelected(): void
     {
-        Loc::cleanMockData('getMessage', defaultResult: 'Not selected');
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'Not selected'));
         $elements = [new TestGroup(), new TestGroup()];
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultResult: $queryMock);
+        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -124,12 +124,12 @@ final class UserGroupsFieldTest extends TestCase
 
     public function testRenderSelectedMultiple(): void
     {
-        Loc::cleanMockData('getMessage', defaultResult: 'Not selected');
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'Not selected'));
         $elements = [new TestGroup(), new TestGroup()];
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultResult: $queryMock);
+        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings\Entities\Fields;
 
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,8 +28,8 @@ final class BooleanFieldTest extends TestCase
         string $message,
     ): void {
         Loc::cleanMockData('getMessage', [
-            Loc::paramHash(['BOOL_FIELD_YES', null, null]) => $labelYes,
-            Loc::paramHash(['BOOL_FIELD_NO', null, null]) => $labelNo,
+            new MockDefinition(['BOOL_FIELD_YES'], $labelYes),
+            new MockDefinition(['BOOL_FIELD_NO'], $labelNo),
         ], namedMode: true);
 
         $output = (new BooleanField($name, $title, static fn() => $value))->renderInput();

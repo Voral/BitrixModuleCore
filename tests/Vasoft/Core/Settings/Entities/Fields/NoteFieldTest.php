@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Settings\Entities\Fields;
 
-use Bitrix\Mocker\FunctionMocker;
+use Bitrix\Mocker\MockDefinition;
+use Bitrix\Mocker\MockFunctions;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -22,12 +23,12 @@ final class NoteFieldTest extends TestCase
 
     public function testRender(): void
     {
-        FunctionMocker::cleanMockData('BeginNote', defaultResult: '<note>');
-        FunctionMocker::cleanMockData('EndNote', defaultResult: '</note>');
+        MockFunctions::cleanMockData('BeginNote', defaultDefinition: new MockDefinition(result: '<note>'));
+        MockFunctions::cleanMockData('EndNote', defaultDefinition: new MockDefinition(result: '</note>'));
         $field = new NoteField(static fn() => '<div>HTML</div>');
         self::assertSame('<tr><td colspan="2"><note><div>HTML</div></note></td></tr>', $field->render());
-        self::assertSame(1, FunctionMocker::getMockedCounter('BeginNote'));
-        self::assertSame(1, FunctionMocker::getMockedCounter('EndNote'));
+        self::assertSame(1, MockFunctions::getMockedCounter('BeginNote'));
+        self::assertSame(1, MockFunctions::getMockedCounter('EndNote'));
     }
 
     public function testAutoincrementCode(): void

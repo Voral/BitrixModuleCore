@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings\Render;
 
 use Bitrix\Main\Localization\Loc;
+use Bitrix\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Vasoft\Core\Settings\Entities\Fields\SeparatorField;
 use Vasoft\Core\Settings\Entities\Fields\TextField;
@@ -20,23 +21,24 @@ final class ControllerTest extends TestCase
     public function testWithTabWithRights(): void
     {
         $expects = <<<'HTML'
-##BEGIN####BEGINNEXTTAB##            <tr>
-                <td style="width:50%;vertical-align:top">Example field</td>
-                <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
-            </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##            <tr>
-                <td style="width:50%;vertical-align:top">Example field</td>
-                <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
-            </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##
-HTML;
+            ##BEGIN####BEGINNEXTTAB##            <tr>
+                            <td style="width:50%;vertical-align:top">Example field</td>
+                            <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
+                        </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##            <tr>
+                            <td style="width:50%;vertical-align:top">Example field</td>
+                            <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
+                        </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##
+            HTML;
 
-        Loc::cleanMockData('getMessage', defaultResult: 'test');
-        \CAdminTabControl::cleanMockData('Begin', outputs: ['##BEGIN##']);
-        \CAdminTabControl::cleanMockData('BeginNextTab', outputs: [
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-        ]);
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'test'));
+        \CAdminTabControl::cleanMockData('Begin', defaultDefinition: new MockDefinition(output: '##BEGIN##'));
+        \CAdminTabControl::cleanMockData(
+            'BeginNextTab',
+            defaultDefinition: new MockDefinition(
+                output: '##BEGINNEXTTAB##',
+            ),
+        );
+
         $controller = new Controller([
             new Tab('div1', 'Tab 1', [
                 new TextField('EXAMPLE_STRING', 'Example field', static fn() => 'test'),
@@ -53,26 +55,27 @@ HTML;
         $output = ob_get_clean();
         self::assertSame($expects, $output);
     }
+
     public function testWithTabWithOutRights(): void
     {
         $expects = <<<'HTML'
-##BEGINNEXTTAB##            <tr>
-                <td style="width:50%;vertical-align:top">Example field</td>
-                <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
-            </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##            <tr>
-                <td style="width:50%;vertical-align:top">Example field</td>
-                <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
-            </tr><tr><td colspan="2"><hr></td></tr>
-HTML;
+            ##BEGINNEXTTAB##            <tr>
+                            <td style="width:50%;vertical-align:top">Example field</td>
+                            <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
+                        </tr><tr><td colspan="2"><hr></td></tr>##BEGINNEXTTAB##            <tr>
+                            <td style="width:50%;vertical-align:top">Example field</td>
+                            <td style="width:50%;vertical-align:top"><input type="text" maxlength="255" value="test" name="EXAMPLE_STRING" style="width:400px;max-width:100%;"></td>
+                        </tr><tr><td colspan="2"><hr></td></tr>
+            HTML;
 
-        Loc::cleanMockData('getMessage', defaultResult: 'test');
-        \CAdminTabControl::cleanMockData('Begin', outputs: ['##BEGIN##']);
-        \CAdminTabControl::cleanMockData('BeginNextTab', outputs: [
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-            '##BEGINNEXTTAB##',
-        ]);
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'test'));
+        \CAdminTabControl::cleanMockData('Begin', defaultDefinition: new MockDefinition(output: '##BEGIN##'));
+        \CAdminTabControl::cleanMockData(
+            'BeginNextTab',
+            defaultDefinition: new MockDefinition(
+                output: '##BEGINNEXTTAB##',
+            ),
+        );
         $controller = new Controller([
             new Tab('div1', 'Tab 1', [
                 new TextField('EXAMPLE_STRING', 'Example field', static fn() => 'test'),
@@ -96,9 +99,15 @@ HTML;
 
     public function testEmptyWithRights(): void
     {
-        Loc::cleanMockData('getMessage', defaultResult: 'test');
-        \CAdminTabControl::cleanMockData('Begin', outputs: ['##BEGIN##']);
-        \CAdminTabControl::cleanMockData('BeginNextTab', outputs: ['##BEGINNEXTTAB##']);
+        Loc::cleanMockData('getMessage', defaultDefinition: new MockDefinition(result: 'test'));
+        \CAdminTabControl::cleanMockData('Begin', defaultDefinition: new MockDefinition(output: '##BEGIN##'));
+        \CAdminTabControl::cleanMockData(
+            'BeginNextTab',
+            defaultDefinition: new MockDefinition(
+                output: '##BEGINNEXTTAB##',
+            ),
+        );
+
         $controller = new Controller([], true);
         ob_start();
         $tabControl = $controller->startTabControl('test');
@@ -113,8 +122,13 @@ HTML;
 
     public function testEmpty(): void
     {
-        \CAdminTabControl::cleanMockData('Begin', outputs: ['##BEGIN##']);
-        \CAdminTabControl::cleanMockData('BeginEndTab', outputs: ['##BEGINENDTAB##']);
+        \CAdminTabControl::cleanMockData('Begin', defaultDefinition: new MockDefinition(output: '##BEGIN##'));
+        \CAdminTabControl::cleanMockData(
+            'BeginNextTab',
+            defaultDefinition: new MockDefinition(
+                output: '##BEGINNEXTTAB##',
+            ),
+        );
         $controller = new Controller([], false);
         ob_start();
         $tabControl = $controller->startTabControl('test');
