@@ -1,7 +1,8 @@
 <?php
 
-/** @see bitrix/modules/main/include/compatibility.php */
+declare(strict_types=1);
 
+/** @see bitrix/modules/main/include/compatibility.php */
 class_alias('Bitrix\Main\ORM\Fields\IReadable', 'Bitrix\Main\Entity\Field\IReadable');
 class_alias('Bitrix\Main\ORM\Fields\IStorable', 'Bitrix\Main\Entity\Field\IStorable');
 class_alias('Bitrix\Main\ORM\Fields\BooleanField', 'Bitrix\Main\Entity\BooleanField');
@@ -36,8 +37,14 @@ class_alias('Bitrix\Main\ORM\Query\Chain', 'Bitrix\Main\Entity\QueryChain');
 class_alias('Bitrix\Main\ORM\Query\ChainElement', 'Bitrix\Main\Entity\QueryChainElement');
 
 class_alias('Bitrix\Main\ORM\Query\Filter\Expressions\Expression', 'Bitrix\Main\Entity\Query\Filter\Expression\Base');
-class_alias('Bitrix\Main\ORM\Query\Filter\Expressions\ColumnExpression', 'Bitrix\Main\Entity\Query\Filter\Expression\Column');
-class_alias('Bitrix\Main\ORM\Query\Filter\Expressions\NullExpression', 'Bitrix\Main\Entity\Query\Filter\Expression\NullEx');
+class_alias(
+    'Bitrix\Main\ORM\Query\Filter\Expressions\ColumnExpression',
+    'Bitrix\Main\Entity\Query\Filter\Expression\Column',
+);
+class_alias(
+    'Bitrix\Main\ORM\Query\Filter\Expressions\NullExpression',
+    'Bitrix\Main\Entity\Query\Filter\Expression\NullEx',
+);
 
 class_alias('Bitrix\Main\ORM\Data\DataManager', 'Bitrix\Main\Entity\DataManager');
 class_alias('Bitrix\Main\ORM\Data\Result', 'Bitrix\Main\Entity\Result');

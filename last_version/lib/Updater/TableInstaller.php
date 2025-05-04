@@ -7,7 +7,6 @@ namespace Vasoft\Core\Updater;
 use Bitrix\Main\Application;
 use Bitrix\Main\ArgumentException;
 use Bitrix\Main\DB\Connection;
-use Bitrix\Main\Diag\Debug;
 use Bitrix\Main\ORM\Entity;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
@@ -37,7 +36,6 @@ class TableInstaller
      */
     public function check(): void
     {
-
         foreach ($this->tables as $tableClass) {
             $instance = Entity::getInstance($tableClass);
             if (!$this->connection->isTableExists($instance->getDBTableName())) {
@@ -53,7 +51,7 @@ class TableInstaller
     public function clean(): void
     {
         foreach ($this->tables as $tableClass) {
-            $tableName = Base::getInstance($tableClass)->getDBTableName();
+            $tableName = Entity::getInstance($tableClass)->getDBTableName();
             if ($this->connection->isTableExists($tableName)) {
                 $this->connection->queryExecute('drop table if exists ' . $tableName);
             }

@@ -34,6 +34,7 @@ class HandlerInstaller
      */
     public function check(): void
     {
+        /** @todo если handelrs пустой - сразу clean */
         $exists = array_reduce($this->getExists(), [$this, 'indexer'], []);
         $needed = array_reduce($this->handlers, [$this, 'indexer'], []);
         $create = array_diff_key($needed, $exists);
@@ -99,7 +100,7 @@ class HandlerInstaller
         $con = Application::getConnection();
         $rs = $con->query(
             sprintf(
-                "SELECT FROM_MODULE_ID, MESSAGE_ID, SORT, TO_CLASS, TO_METHOD  FROM b_module_to_module	WHERE TO_MODULE_ID = '%s'",
+                "SELECT FROM_MODULE_ID, MESSAGE_ID, TO_CLASS, TO_METHOD  FROM b_module_to_module WHERE TO_MODULE_ID = '%s'",
                 $this->moduleId,
             ),
         );

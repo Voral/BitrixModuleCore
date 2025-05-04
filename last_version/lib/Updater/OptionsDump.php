@@ -41,7 +41,7 @@ class OptionsDump
         );
     }
 
-    public function getFileName(string $moduleId, string $template): string
+    protected function getFileName(string $moduleId, string $template): string
     {
         return $this->baseDir . str_replace(
             ['#MODULE_ID#', '#TIME#'],
@@ -54,6 +54,7 @@ class OptionsDump
      * Настройки модуля в php файл.
      *
      * @param string       $moduleId Идентификатор модуля
+     * @param string       $fileName Путь к файлу настроек без расширения
      * @param array        $filter   Массив символьных кодов настроек, которы необходимо исключить
      * @param false|string $siteId   Идентификатор сайта или false для сайта по умолчанию
      *
@@ -92,15 +93,17 @@ class OptionsDump
             $options = [];
             include $fileName;
             $options = array_diff_key($options, array_flip($filter));
-            if ($backup && !empty($options)) {
-                $this->dump(
-                    $settings->moduleCode,
-                    $this->getFileName($settings->moduleCode, '#MODULE_ID#-#TIME#-bkp'),
-                    [],
-                    $settings->siteId,
-                );
+            if (!empty($options)) {
+                if ($backup) {
+                    $this->dump(
+                        $settings->moduleCode,
+                        $this->getFileName($settings->moduleCode, '#MODULE_ID#-#TIME#-bkp'),
+                        [],
+                        $settings->siteId,
+                    );
+                }
+                $settings->saveFromArray($options);
             }
-            $settings->saveFromArray($options);
         }
     }
 
@@ -124,7 +127,7 @@ class OptionsDump
     ): void {
         if (file_exists($fileName)) {
             $options = [];
-            include_once $fileName;
+            include $fileName;
             $options = array_diff_key($options, array_flip($filter));
             if ($backup && !empty($options)) {
                 $this->dump(

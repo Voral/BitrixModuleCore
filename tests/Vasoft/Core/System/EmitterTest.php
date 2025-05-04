@@ -14,9 +14,7 @@ use Vasoft\Core\Exceptions\DependencyExistsException;
 /**
  * @internal
  *
- * @сoversDefaultClass \Vasoft\Core\System\Emitter
- *
- * @coversNothing
+ * @coversDefaultClass \Vasoft\Core\System\Emitter
  */
 final class EmitterTest extends TestCase
 {

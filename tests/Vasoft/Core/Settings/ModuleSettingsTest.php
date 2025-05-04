@@ -62,9 +62,9 @@ final class ModuleSettingsTest extends TestCase
         $definition2 = new MockDefinition(['EXAMPLE_INT'], result: 'Example value');
         Loc::cleanMockData(
             'getMessage',
-            [$definition1, $definition2,],
+            [$definition1, $definition2],
             defaultDefinition: new MockDefinition(result: ''),
-            namedMode: true
+            namedMode: true,
         );
 
         $settings = FirstModuleSettings::getInstance(false, __METHOD__);
@@ -90,9 +90,9 @@ final class ModuleSettingsTest extends TestCase
         $definition2 = new MockDefinition(['EXAMPLE_INT'], result: 'Example value');
         Loc::cleanMockData(
             'getMessage',
-            [$definition1, $definition2,],
+            [$definition1, $definition2],
             defaultDefinition: new MockDefinition(result: ''),
-            namedMode: true
+            namedMode: true,
         );
 
         $settings = FirstModuleSettings::getInstance(siteId: __METHOD__);
@@ -196,7 +196,7 @@ class FirstModuleSettings extends ModuleSettings
             return 0;
         }
 
-        return (int)$this->options[self::PROP_EXAMPLE_INT];
+        return (int) $this->options[self::PROP_EXAMPLE_INT];
     }
 
     public function getExampleString(): string

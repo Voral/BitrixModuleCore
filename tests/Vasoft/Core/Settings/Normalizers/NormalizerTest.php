@@ -22,7 +22,8 @@ final class NormalizerTest extends TestCase
         self::assertSame('1', Normalizer::normalizeInt('1das0'));
     }
 
-    public function testNormalizeNotZeroInt(): void {
+    public function testNormalizeNotZeroInt(): void
+    {
         self::assertSame('1', Normalizer::normalizeNotZeroInt('1'));
         self::assertSame('', Normalizer::normalizeNotZeroInt(''));
         self::assertSame('', Normalizer::normalizeNotZeroInt(0));
@@ -30,13 +31,15 @@ final class NormalizerTest extends TestCase
         self::assertSame('1', Normalizer::normalizeNotZeroInt('1das0'));
     }
 
-    public function testNormalizeString(): void {
+    public function testNormalizeString(): void
+    {
         self::assertSame('test', Normalizer::normalizeString('test'));
         self::assertSame('test', Normalizer::normalizeString(' test '));
         self::assertSame('test', Normalizer::normalizeString(" test \n"));
     }
 
-    public function testNormalizeCommaSeparatedString(): void {
+    public function testNormalizeCommaSeparatedString(): void
+    {
         self::assertSame('test', Normalizer::normalizeCommaSeparatedString('test'));
         self::assertSame('test,test1', Normalizer::normalizeCommaSeparatedString('test,  test1'));
         self::assertSame('test,test1', Normalizer::normalizeCommaSeparatedString('test ,  test1'));
@@ -44,7 +47,8 @@ final class NormalizerTest extends TestCase
         self::assertSame('test,test1', Normalizer::normalizeCommaSeparatedString(",test,test1,\n"));
     }
 
-    public function testNormalizeBoolean(): void {
+    public function testNormalizeBoolean(): void
+    {
         self::assertSame('Y', Normalizer::normalizeBoolean('Y'));
         self::assertSame('Y', Normalizer::normalizeBoolean('y'));
         self::assertSame('Y', Normalizer::normalizeBoolean(' y '));
@@ -53,7 +57,8 @@ final class NormalizerTest extends TestCase
         self::assertSame('N', Normalizer::normalizeBoolean(''));
     }
 
-    public function testNormalizeCommaSeparatedInteger(): void {
+    public function testNormalizeCommaSeparatedInteger(): void
+    {
         self::assertSame('1', Normalizer::normalizeCommaSeparatedInteger('1'));
         self::assertSame('1,123,31', Normalizer::normalizeCommaSeparatedInteger('1,123,31  '));
         self::assertSame('1,123,31', Normalizer::normalizeCommaSeparatedInteger(', 1, 123, 31  ,'));
