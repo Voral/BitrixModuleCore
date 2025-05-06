@@ -18,7 +18,14 @@ class JobMapper implements MapperInterface
     {
         return array_reduce(
             $data,
-            static fn(array $curry, JobProcessorInterface $job) => array_merge($curry, [''], $job->getMessageStrings()),
+            static function (array $curry, JobProcessorInterface $job) {
+                $messages = $job->getMessageStrings();
+                if (!empty($curry)) {
+                    $curry[] = '';
+                }
+
+                return empty($messages) ? $curry : array_merge($curry, $messages);
+            },
             [],
         );
     }

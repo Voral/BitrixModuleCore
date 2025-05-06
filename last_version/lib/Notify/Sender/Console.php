@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Notify\Sender;
 
-use Vasoft\Core\Notify\Contract\SendService;
+use Vasoft\Core\Notify\Contract\SendServiceInterface;
 
 /**
  * Консольный сервис отправки уведомлений.
  */
-class Console implements SendService
+class Console implements SendServiceInterface
 {
     public function __construct() {}
 
@@ -23,7 +23,7 @@ class Console implements SendService
     private function render($messageStrings): string
     {
         $message = implode("\r\n", $messageStrings);
-        $message = preg_replace('#<br\s* /?>#i', "\r\n", $message);
+        $message = preg_replace('#<br\s*/?>#i', "\r\n", $message);
 
         return strip_tags($message);
     }

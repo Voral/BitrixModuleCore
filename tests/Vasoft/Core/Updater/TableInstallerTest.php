@@ -77,7 +77,6 @@ final class TableInstallerTest extends TestCase
         $definition1 = new MockDefinition(['\Vendor\Example\Data\TestTable::class'], $table1);
         $definition2 = new MockDefinition(['\Vendor\Example\Data\TestTable2::class'], $table2);
         Entity::cleanMockData('getInstance', [$definition1, $definition2], namedMode: true);
-        //        Entity::cleanMockData('createDbTable');
         Loader::cleanMockData('includeModule', defaultDefinition: new MockDefinition(result: true));
         Application::cleanMockData('getConnection', defaultDefinition: new MockDefinition(result: $connection));
 
@@ -86,13 +85,8 @@ final class TableInstallerTest extends TestCase
             '\Vendor\Example\Data\TestTable2::class',
         ]);
         $installer->clean();
-        //        self::assertSame(1, Loader::getMockedCounter('includeModule'));
-        //        self::assertSame(1, Application::getMockedCounter('getConnection'));
-        //        self::assertSame(2, Entity::getMockedCounter('getInstance'));
-        //        self::assertSame(1, Entity::getMockedCounter('createDbTable'));
-        //        self::assertSame(
-        //            ['\Vendor\Example\Data\TestTable2::class'],
-        //            Entity::getMockedParams('getInstance', $definition2->getIndex()),
-        //        );
+        self::assertSame(1, Loader::getMockedCounter('includeModule'));
+        self::assertSame(1, Application::getMockedCounter('getConnection'));
+        self::assertSame(2, Entity::getMockedCounter('getInstance'));
     }
 }

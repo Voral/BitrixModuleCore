@@ -7,7 +7,7 @@ namespace Vasoft\Core\Notify\Contract;
 /**
  * Интерфейс сервиса для отправки уведомлений.
  */
-interface SendService
+interface SendServiceInterface
 {
     /**
      * Отправить уведомление.

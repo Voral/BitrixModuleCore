@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Notify\Sender;
 
-use Vasoft\Core\Notify\Contract\SendService;
+use Vasoft\Core\Notify\Contract\SendServiceInterface;
 
 /**
  * Сервис отправки сообщений в телеграмм
  */
-class Telegram implements SendService
+class Telegram implements SendServiceInterface
 {
     public const URL_TEMPLATE = 'https://api.telegram.org/bot%s/';
     public const URL_SEND_MESSAGE = 'sendMessage';

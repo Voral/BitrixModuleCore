@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Notify;
 
-use Vasoft\Core\Notify\Contract\SendService;
+use Vasoft\Core\Notify\Contract\SendServiceInterface;
 use Vasoft\Core\Notify\Job\JobMapper;
 
 /**
@@ -13,14 +13,14 @@ use Vasoft\Core\Notify\Job\JobMapper;
 class Notifier
 {
     /**
-     * @param array       $jobs   Очередь задач
-     * @param JobMapper   $mapper Отображение задач
-     * @param SendService $sender Сервис отправки сообщений
+     * @param array                $jobs   Очередь задач
+     * @param JobMapper            $mapper Отображение задач
+     * @param SendServiceInterface $sender Сервис отправки сообщений
      */
     public function __construct(
         private readonly array $jobs,
         private readonly JobMapper $mapper,
-        private readonly SendService $sender,
+        private readonly SendServiceInterface $sender,
     ) {}
 
     public function process(): void
