@@ -1,7 +1,9 @@
 <?php
 /** @noinspection PhpUnused */
 
-/**
+declare(strict_types=1);
+
+/*
  * Базовый модуль для решений
  * @author Воробьев Александр
  * @version 1.0.0
@@ -12,26 +14,29 @@
 
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\Config\Option;
+use Bitrix\Main\DB\SqlQueryException;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
 use Bitrix\Main\SystemException;
 use Vasoft\Core\Exceptions\DependencyExistsException;
+use Vasoft\Core\Handlers\HandlerUpdater;
 use Vasoft\Core\System\Emitter;
+use Bitrix\Main\ArgumentException;
 
 Loc::loadMessages(__FILE__);
 
 class vasoft_core extends CModule
 {
-    var $MODULE_ID = 'vasoft.core';
+    public $MODULE_ID = 'vasoft.core';
     public const MIN_PHP_VERSION = '8.1.0';
     public const MIN_CORE_VERSION = '23.500.200';
 
     public function __construct()
     {
-        $arModuleVersion = array();
-        include(__DIR__ . '/version.php');
+        $arModuleVersion = [];
+        include __DIR__ . '/version.php';
         $this->MODULE_ID = 'vasoft.core';
         $this->MODULE_VERSION = $arModuleVersion['VERSION'];
         $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
@@ -45,49 +50,53 @@ class vasoft_core extends CModule
     }
 
     /**
-     * @noinspection PhpMissingReturnTypeInspection
      * @noinspection AccessModifierPresentedInspection
      * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    function DoInstall()
+    public function DoInstall(): void
     {
         global $APPLICATION;
+
         try {
             if ($this->isWrongCoreVersion()) {
-                throw new SystemException(Loc::getMessage('ERROR_BITRIX_CORE', ['#VERSION#' => self::MIN_CORE_VERSION]));
+                throw new SystemException(
+                    Loc::getMessage('ERROR_BITRIX_CORE', ['#VERSION#' => self::MIN_CORE_VERSION]),
+                );
             }
             if ($this->isWrongPHP()) {
                 throw new SystemException(Loc::getMessage('ERROR_PHP_VERSION', ['#VERSION#', self::MIN_PHP_VERSION]));
             }
             ModuleManager::registerModule($this->MODULE_ID);
-            $result = true;
+            $this->InstallEvents();
         } catch (Exception $exception) {
-            $result = false;
             $APPLICATION->ThrowException($exception->getMessage());
         }
-        return $result;
     }
 
-    /** @noinspection PhpMissingReturnTypeInspection
+    /**
      * @noinspection AccessModifierPresentedInspection
      * @noinspection ReturnTypeCanBeDeclaredInspection
-     * @return bool
+     *
+     * @throws ArgumentException
      * @throws ArgumentNullException
      * @throws LoaderException
+     * @throws SqlQueryException
      */
-    function DoUninstall()
+    public function DoUninstall(): void
     {
         global $APPLICATION;
         Loader::includeModule($this->MODULE_ID);
+
         try {
             Emitter::emitRemove();
+            $this->UnInstallEvents();
+            Option::delete($this->MODULE_ID);
+            ModuleManager::unRegisterModule($this->MODULE_ID);
         } catch (DependencyExistsException $e) {
-            $APPLICATION->throwException($e->getMessage() . '<ul><li>' . implode('</li><li>', $e->dependency) . '</li></ul>');
-            return false;
+            $APPLICATION->throwException(
+                $e->getMessage() . '<ul><li>' . implode('</li><li>', $e->dependency) . '</li></ul>',
+            );
         }
-        Option::delete($this->MODULE_ID);
-        ModuleManager::unRegisterModule($this->MODULE_ID);
-        return true;
     }
 
     private function isWrongCoreVersion(): bool
@@ -98,5 +107,21 @@ class vasoft_core extends CModule
     private function isWrongPHP(): bool
     {
         return version_compare(PHP_VERSION, self::MIN_PHP_VERSION) < 0;
+    }
+
+    /**
+     * @throws SqlQueryException
+     */
+    public function InstallEvents(): void
+    {
+        (new HandlerUpdater())->check();
+    }
+
+    /**
+     * @throws SqlQueryException
+     */
+    public function UnInstallEvents(): void
+    {
+        (new HandlerUpdater())->clean();
     }
 }
