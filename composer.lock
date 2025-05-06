@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "678e9d22567a08d8e28809dae61199a2",
+    "content-hash": "484c9122e5fb15998f46f2a1e9226689",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -4752,6 +4752,77 @@
                 "source": "https://github.com/Voral/mock-builder/tree/v0.8.0"
             },
             "time": "2025-05-04T09:10:23+00:00"
+        },
+        {
+            "name": "voral/version-increment",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Voral/vs-version-incrementor.git",
+                "reference": "d4cea1a9d7e30e17290c1067da9c736052648382"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Voral/vs-version-incrementor/zipball/d4cea1a9d7e30e17290c1067da9c736052648382",
+                "reference": "d4cea1a9d7e30e17290c1067da9c736052648382",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.66.0",
+                "php-mock/php-mock-phpunit": "^2.10",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^10.5"
+            },
+            "bin": [
+                "bin/vs-version-increment"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vasoft\\VersionIncrement\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Vorobyev",
+                    "email": "voral.adm@gmail.com"
+                }
+            ],
+            "description": "A tool for semantic versioning and changelog generation in Composer projects based on Git commits.",
+            "homepage": "https://github.com/Voral/vs-version-incrementor",
+            "keywords": [
+                "PHP Library",
+                "automated versioning",
+                "automation tool",
+                "changelog",
+                "changelog formatting",
+                "changelog generator",
+                "commit analysis",
+                "composer",
+                "conventional commits",
+                "dev tool",
+                "git",
+                "git integration",
+                "php tool",
+                "release management",
+                "semantic versioning",
+                "version control",
+                "version increment",
+                "version management"
+            ],
+            "support": {
+                "issues": "https://github.com/Voral/vs-version-incrementor/issues",
+                "source": "https://github.com/Voral/vs-version-incrementor"
+            },
+            "time": "2025-04-22T14:48:26+00:00"
         },
         {
             "name": "webmozart/assert",
