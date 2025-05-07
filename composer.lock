@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "484c9122e5fb15998f46f2a1e9226689",
+    "content-hash": "70db31284ab635ef392d51fb8c258ac7",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -4692,16 +4692,16 @@
         },
         {
             "name": "voral/mock-builder",
-            "version": "v0.8.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Voral/mock-builder.git",
-                "reference": "4b327fdac65f89006b8df5fe88235da93f3bb133"
+                "reference": "2cdbd9526dcf22ab848c6aa9f666acf796550379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Voral/mock-builder/zipball/4b327fdac65f89006b8df5fe88235da93f3bb133",
-                "reference": "4b327fdac65f89006b8df5fe88235da93f3bb133",
+                "url": "https://api.github.com/repos/Voral/mock-builder/zipball/2cdbd9526dcf22ab848c6aa9f666acf796550379",
+                "reference": "2cdbd9526dcf22ab848c6aa9f666acf796550379",
                 "shasum": ""
             },
             "require": {
@@ -4749,9 +4749,78 @@
             "support": {
                 "email": "voral.adm@gmail.com",
                 "issues": "https://github.com/Voral/mock-builder/issues",
-                "source": "https://github.com/Voral/mock-builder/tree/v0.8.0"
+                "source": "https://github.com/Voral/mock-builder/tree/v1.0.0"
             },
-            "time": "2025-05-04T09:10:23+00:00"
+            "time": "2025-05-07T04:32:36+00:00"
+        },
+        {
+            "name": "voral/mock-builder-bitrix",
+            "version": "0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "../mock-builder-bitrix",
+                "reference": "3f9a0730be2910020fba736076e85859a64a2c99"
+            },
+            "require": {
+                "php": ">=8.1",
+                "voral/mock-builder": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.66.0",
+                "php-mock/php-mock-phpunit": "^2.13",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^10.5",
+                "voral/version-increment": "^2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Vasoft\\MockBuilderBitrix\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Vasoft\\MockBuilderBitrix\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "mock:build": [
+                    "php ./vendor/bin/vs-mock-builder.php"
+                ],
+                "vi:auto": [
+                    "php ./vendor/bin/vs-version-increment"
+                ],
+                "vi:debug": [
+                    "php ./vendor/bin/vs-version-increment --debug"
+                ],
+                "test": [
+                    "php vendor/bin/phpunit --display-warnings"
+                ],
+                "stan": [
+                    "vendor/bin/phpstan analyse last_version/lib tests"
+                ],
+                "fixer": [
+                    "vendor/bin/php-cs-fixer fix --dry-run --diff"
+                ],
+                "checkit": [
+                    "@fixer",
+                    "@stan"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Vorobyev",
+                    "email": "voral.adm@gmail.com"
+                }
+            ],
+            "description": "Extension for voral/mock-builder for Bitrix CMS",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "voral/version-increment",

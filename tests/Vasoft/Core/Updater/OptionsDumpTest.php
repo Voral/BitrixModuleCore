@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Updater;
 
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\ArgumentNullException;

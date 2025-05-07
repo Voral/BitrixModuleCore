@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings;
 
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Vasoft\Core\Settings\Exceptions\RequiredOptionException;
 use Vasoft\Core\Settings\Normalizers\Normalizer;

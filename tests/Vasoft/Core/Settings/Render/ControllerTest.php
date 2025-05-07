@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Settings\Render;
 
 use Bitrix\Main\Localization\Loc;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Vasoft\Core\Settings\Entities\Fields\SeparatorField;
 use Vasoft\Core\Settings\Entities\Fields\TextField;

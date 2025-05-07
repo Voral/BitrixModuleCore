@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Notify\Handlers;
 
 use Bitrix\Main\Config\Configuration;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Vasoft\Core\Notify\Sender\Telegram;
 

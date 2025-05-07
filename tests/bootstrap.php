@@ -2,7 +2,13 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/functions-mock.php';
-require __DIR__ . '/custom_autoloader.php';
-require __DIR__ . '/aliases.php';
-require __DIR__ . '/../vendor/autoload.php';
+use Vasoft\MockBuilderBitrix\Autoloader;
+
+$path = realpath(__DIR__ . '/../vendor/voral/mock-builder-bitrix/src/') . '/Autoloader.php';
+
+if (file_exists($path)) {
+    include_once $path;
+    (new Autoloader(__DIR__ . '/../bx'))->registerAll();
+} else {
+    exit('voral/mock-builder-bitrix not found');
+}

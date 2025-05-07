@@ -8,7 +8,7 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Objectify\Collection;
 use Bitrix\Main\ORM\Query\Query;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**

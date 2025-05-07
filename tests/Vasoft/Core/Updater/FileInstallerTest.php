@@ -6,7 +6,7 @@ namespace Vasoft\Core\Updater;
 
 use Bitrix\Main\IO\FileSystemEntry;
 use Bitrix\Main\Loader;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Bitrix\Main\IO\Directory;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Settings\Entities\Fields;
 
-use Bitrix\Mocker\MockDefinition;
-use Bitrix\Mocker\MockFunctions;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockFunctions;
 use PHPUnit\Framework\TestCase;
 
 /**

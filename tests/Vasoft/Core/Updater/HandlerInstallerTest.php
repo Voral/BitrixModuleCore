@@ -7,7 +7,7 @@ namespace Vasoft\Core\Updater;
 use Bitrix\Main\Application;
 use Bitrix\Main\DB\Connection;
 use Bitrix\Main\EventManager;
-use Bitrix\Mocker\MockDefinition;
+use Vasoft\MockBuilder\Mocker\MockDefinition;
 use PHPUnit\Framework\TestCase;
 use Bitrix\Main\DB\Result;
 
