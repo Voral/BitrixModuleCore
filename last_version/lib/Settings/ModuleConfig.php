@@ -11,8 +11,6 @@ class ModuleConfig extends ModuleSettings
     public const MODULE_ID = 'vasoft.core';
 
     /**
-     * @return ModuleConfig
-     *
      * @throws ArgumentNullException
      */
     public static function getInstance(bool $sendThrow = true): static

@@ -14,7 +14,7 @@ use Bitrix\Main\SystemException;
 
 class TableInstaller
 {
-    private \Bitrix\Main\Data\Connection|Connection $connection;
+    private Connection $connection;
 
     /**
      * @param string   $moduleId Идентификатор модуля

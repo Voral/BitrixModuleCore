@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpPropertyOnlyWrittenInspection */
 
 namespace Vasoft\Core\Settings;
 
@@ -14,11 +13,8 @@ abstract class ModuleSettings
 {
     /** @var callable[] */
     protected array $normalizer = [];
-
-    /** @var ModuleSettings[] */
     private static array $instance = [];
     protected array $options = [];
-
     private array $registeredProperties = [];
 
     private bool $langLoaded = false;
@@ -58,8 +54,6 @@ abstract class ModuleSettings
      * @param bool   $sendThrow  Выбрасывать исключения при запросе параметров, для которых не заданы значения
      * @param string $siteId     Идентификатор сайта
      *
-     * @return ModuleSettings
-     *
      * @throws ArgumentNullException
      */
     protected static function initInstance(string $moduleCode, bool $sendThrow = true, string $siteId = ''): static
@@ -69,8 +63,10 @@ abstract class ModuleSettings
             // @phpstan-ignore-next-line
             self::$instance[$index] = new static($moduleCode, $sendThrow, $siteId);
         }
+        $instance = self::$instance[$index];
+        assert($instance instanceof static);
 
-        return self::$instance[$index];
+        return $instance;
     }
 
     abstract public static function getInstance(bool $sendThrow = true): static;
@@ -146,13 +142,13 @@ abstract class ModuleSettings
         return $this->registeredProperties;
     }
 
-    public function getReflection(): \ReflectionClass
+    private function getReflection(): \ReflectionClass
     {
-        if (!isset(static::$reflections[static::class])) {
-            static::$reflections[static::class] = new \ReflectionClass(static::class);
+        if (!isset(self::$reflections[static::class])) {
+            self::$reflections[static::class] = new \ReflectionClass(static::class);
         }
 
-        return static::$reflections[static::class];
+        return self::$reflections[static::class];
     }
 
     /**

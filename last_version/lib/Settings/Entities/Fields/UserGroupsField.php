@@ -36,8 +36,10 @@ class UserGroupsField extends SelectField
             ->addSelect('NAME')
             ->fetchCollection();
         $this->options[0] = Loc::getMessage('FIELD_USER_GROUP_EMPTY');
-        foreach ($collection as $group) {
-            $this->options[$group->getId()] = $group->getName();
+        if ($collection instanceof \Iterator) {
+            foreach ($collection as $group) {
+                $this->options[$group->getId()] = $group->getName();
+            }
         }
     }
 }

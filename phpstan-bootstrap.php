@@ -12,3 +12,4 @@ if (file_exists($path)) {
 } else {
     exit($path . ' not found');
 }
+include_once __DIR__ . '/tests/aliases.php';

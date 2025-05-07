@@ -11,5 +11,10 @@ if (file_exists($local)) {
 }
 
 $configurator = new Configurator($bitrixModulesPaths);
+$config = $configurator->getBitrixMockBuilderSettings(__DIR__ . '/bx/', ['main'], targetPhpVersion: '8.1');
+$config['resultTypes'] = [
+    'Bitrix\Main\Application::getConnection' => '\Bitrix\Main\DB\Connection',
+    'Bitrix\Main\ORM\Query::fetchCollection' => '\Bitrix\Main\ORM\Objectify\Collection',
+];
 
-return $configurator->getBitrixMockBuilderSettings(__DIR__ . '/bx/', ['main'], targetPhpVersion: '8.1');
+return $config;

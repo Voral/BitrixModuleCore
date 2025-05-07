@@ -8,4 +8,4 @@ parameters:
         - phpstan-bootstrap.php
     excludePaths:
         - tests
-    level: 1
+    level: 3
