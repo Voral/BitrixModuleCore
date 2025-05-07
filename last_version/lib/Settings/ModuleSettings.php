@@ -66,6 +66,7 @@ abstract class ModuleSettings
             // @phpstan-ignore-next-line
             self::$instance[$index] = new static($moduleCode, $sendThrow, $siteId);
         }
+
         return self::$instance[$index];
     }
 
@@ -183,8 +184,11 @@ abstract class ModuleSettings
     {
         if (!$this->langLoaded) {
             $reflection = $this->getReflection();
-            Loc::loadMessages($reflection->getFileName());
-            $this->langLoaded = true;
+            $fileName = $reflection->getFileName();
+            if ($fileName) {
+                Loc::loadMessages($fileName);
+                $this->langLoaded = true;
+            }
         }
 
         return trim((string) Loc::getMessage($code));

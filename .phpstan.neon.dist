@@ -10,4 +10,4 @@ parameters:
         - tests
     ignoreErrors:
         - '#Trait .*SelectOptions is used zero times and is not analysed#' # Регулярное выражение для игнорирования
-    level: 6
+    level: 7

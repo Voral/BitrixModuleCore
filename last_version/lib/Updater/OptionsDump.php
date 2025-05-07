@@ -110,10 +110,10 @@ class OptionsDump
     /**
      * Восстановление настроек модуля из php файла.
      *
-     * @param string      $moduleId Идентификатор модуля
-     * @param string[]    $filter   Массив символьных кодов настроек, которы необходимо исключить
-     * @param bool|string $siteId   Идентификатор сайта или false для сайта по умолчанию
-     * @param bool        $backup   Выполнять бекап
+     * @param string   $moduleId Идентификатор модуля
+     * @param string[] $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param string   $siteId   Идентификатор сайта или пустое значение для сайта по умолчанию
+     * @param bool     $backup   Выполнять бекап
      *
      * @throws ArgumentNullException
      * @throws ArgumentOutOfRangeException
@@ -122,7 +122,7 @@ class OptionsDump
         string $moduleId,
         string $fileName,
         array $filter = [],
-        bool|string $siteId = false,
+        string $siteId = '',
         bool $backup = true,
     ): void {
         if (file_exists($fileName)) {

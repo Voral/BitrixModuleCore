@@ -47,21 +47,19 @@ class Telegram implements SendServiceInterface
             'chat_id' => $this->chatId,
             'text' => $message,
         ];
-
-        return json_decode(
-            file_get_contents(
-                $url,
-                false,
-                stream_context_create([
-                    'http' => [
-                        'method' => 'POST',
-                        'header' => 'Content-type: application/json',
-                        'content' => json_encode($data),
-                    ],
-                ]),
-            ),
-            true,
+        $content = file_get_contents(
+            $url,
+            false,
+            stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => 'Content-type: application/json',
+                    'content' => json_encode($data),
+                ],
+            ]),
         );
+
+        return $content ? json_decode($content, true) : [];
     }
 
     /**

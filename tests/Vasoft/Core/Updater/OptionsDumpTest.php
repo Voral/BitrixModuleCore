@@ -217,10 +217,10 @@ final class OptionsDumpTest extends TestCase
         $this->clearMockFileExists([$fileName => true]);
         Option::cleanMockData('set');
         $dumper = new OptionsDump('/');
-        $dumper->restore('vendor.module4', $fileName, [], false, false);
+        $dumper->restore('vendor.module4', $fileName, [], '', false);
         self::assertSame(2, Option::getMockedCounter('set'));
-        self::assertSame(['vendor.module4', 'option1', 'value1', false], Option::getMockedParams('set', 0));
-        self::assertSame(['vendor.module4', 'option2', 'value2', false], Option::getMockedParams('set', 1));
+        self::assertSame(['vendor.module4', 'option1', 'value1', ''], Option::getMockedParams('set', 0));
+        self::assertSame(['vendor.module4', 'option2', 'value2', ''], Option::getMockedParams('set', 1));
     }
 
     public function testRestoreFilteredNoBackUp(): void
@@ -229,9 +229,9 @@ final class OptionsDumpTest extends TestCase
         $this->clearMockFileExists([$fileName => true]);
         Option::cleanMockData('set');
         $dumper = new OptionsDump('/');
-        $dumper->restore('vendor.module4', $fileName, ['option1'], false, false);
+        $dumper->restore('vendor.module4', $fileName, ['option1'], '', false);
         self::assertSame(1, Option::getMockedCounter('set'));
-        self::assertSame(['vendor.module4', 'option2', 'value2', false], Option::getMockedParams('set', 0));
+        self::assertSame(['vendor.module4', 'option2', 'value2', ''], Option::getMockedParams('set', 0));
     }
 
     public function testRestoreFilteredNoBackUpSite(): void
@@ -261,7 +261,7 @@ final class OptionsDumpTest extends TestCase
         $dumper = new OptionsDump('/');
         $dumper->restore('vendor.module4', $fileName, ['option1']);
         self::assertSame(1, Option::getMockedCounter('set'));
-        self::assertSame(['vendor.module4', 'option2', 'value2', false], Option::getMockedParams('set', 0));
+        self::assertSame(['vendor.module4', 'option2', 'value2', ''], Option::getMockedParams('set', 0));
 
         self::assertSame(1, self::$mockFileExistsCount);
         self::assertSame($fileName, self::$mockFileExistsParam[0]);

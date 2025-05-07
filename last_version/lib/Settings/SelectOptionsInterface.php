@@ -8,6 +8,7 @@ interface SelectOptionsInterface
 {
     /**
      * Возвращает список для Select значение в качестве ключа - Описание.
+     *
      * @return array<string, string>
      */
     public static function getList(): array;

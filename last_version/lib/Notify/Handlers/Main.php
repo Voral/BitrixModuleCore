@@ -21,8 +21,9 @@ class Main
         if ('' === $token || '' === $channelId) {
             return null;
         }
+        $sender = new (static::$senderClass)($token, $channelId);
 
-        return new (static::$senderClass)($token, $channelId);
+        return $sender instanceof Telegram ? $sender : null;
     }
 
     public static function onAutoBackupUnknownError(mixed $payload): void
