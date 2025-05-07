@@ -9,7 +9,6 @@ $path = realpath(__DIR__ . '/vendor/voral/mock-builder-bitrix/src/') . '/Autoloa
 if (file_exists($path)) {
     include_once $path;
     (new Autoloader(__DIR__ . '/bx'))->registerAll();
-    echo 'TEST' . PHP_EOL;
 } else {
     exit($path . ' not found');
 }
