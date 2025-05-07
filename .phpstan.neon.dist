@@ -9,6 +9,3 @@ parameters:
     excludePaths:
         - tests
     level: 1
-
-# Bootstrap файл для загрузки моков или других зависимостей
-# bootstrap: phpstan-bootstrap.php
