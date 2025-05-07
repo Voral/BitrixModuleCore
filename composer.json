@@ -24,7 +24,7 @@
     "phpstan/phpstan-phpunit": "^2.0",
     "voral/mock-builder": "^1.0",
     "voral/version-increment": "^2.1",
-    "voral/mock-builder-bitrix": "^0.1"
+    "voral/mock-builder-bitrix": "^1.0"
   },
   "prefer-stable": true,
   "archive": {
