@@ -23,6 +23,11 @@ class Telegram implements SendServiceInterface
         private readonly string $chatId,
     ) {}
 
+    /**
+     * @param string[] $messageStrings
+     *
+     * @return array<mixed>
+     */
     public function send(array $messageStrings): array
     {
         if (empty($this->token) || empty($this->chatId)) {
@@ -32,6 +37,9 @@ class Telegram implements SendServiceInterface
         return $this->push($this->render($messageStrings));
     }
 
+    /**
+     * @return array<mixed>
+     */
     private function push(string $message): array
     {
         $url = sprintf(self::URL_TEMPLATE, $this->token) . self::URL_SEND_MESSAGE;
@@ -56,7 +64,10 @@ class Telegram implements SendServiceInterface
         );
     }
 
-    private function render($messageStrings): string
+    /**
+     * @param string[] $messageStrings
+     */
+    private function render(array $messageStrings): string
     {
         $message = implode("\r\n", $messageStrings);
         $message = preg_replace('#<br\s*/?>#i', "\r\n", $message);

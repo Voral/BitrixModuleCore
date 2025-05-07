@@ -1,7 +1,6 @@
 <?php
 
 declare(strict_types=1);
-/** @noinspection PhpSameParameterValueInspection */
 
 namespace Vasoft\Core\Updater;
 
@@ -90,6 +89,8 @@ class FileInstaller
      * @prop string $section наименование раздела для копирования
      * @prop string $filter часть имени файла по которому производится отбор
      *
+     * @return array<string,string>
+     *
      * @throws FileNotFoundException
      */
     private function getExists(string $section, string $filter = ''): array
@@ -117,6 +118,8 @@ class FileInstaller
      * - admin - страницы панели управления
      * - js - для файлов скриптов
      * - и т.п.
+     *
+     * @return array<string,string>
      *
      * @throws FileNotFoundException
      */

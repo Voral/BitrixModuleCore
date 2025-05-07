@@ -12,13 +12,14 @@ use Vasoft\Core\Settings\Field;
  */
 class SelectField extends Field
 {
+    /** @var array<int|string,string> */
     protected array $options = [];
     private bool $multiple = false;
 
     /**
      * Конфигурация опций списка выбора.
      *
-     * @param array $options Ключ - значение, Величина - описание
+     * @param array<int|string,string> $options Ключ - значение, Величина - описание
      *
      * @return $this
      */

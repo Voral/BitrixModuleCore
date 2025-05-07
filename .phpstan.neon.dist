@@ -8,4 +8,6 @@ parameters:
         - phpstan-bootstrap.php
     excludePaths:
         - tests
-    level: 3
+    ignoreErrors:
+        - '#Trait .*SelectOptions is used zero times and is not analysed#' # Регулярное выражение для игнорирования
+    level: 6

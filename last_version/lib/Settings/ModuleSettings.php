@@ -13,13 +13,16 @@ abstract class ModuleSettings
 {
     /** @var callable[] */
     protected array $normalizer = [];
+    /** @var static[] */
     private static array $instance = [];
+    /** @var array<string,mixed> */
     protected array $options = [];
+    /** @var string[] */
     private array $registeredProperties = [];
 
     private bool $langLoaded = false;
 
-    /** @var \ReflectionClass[] */
+    /** @var \ReflectionClass<static>[] */
     private static array $reflections = [];
 
     /**
@@ -63,10 +66,7 @@ abstract class ModuleSettings
             // @phpstan-ignore-next-line
             self::$instance[$index] = new static($moduleCode, $sendThrow, $siteId);
         }
-        $instance = self::$instance[$index];
-        assert($instance instanceof static);
-
-        return $instance;
+        return self::$instance[$index];
     }
 
     abstract public static function getInstance(bool $sendThrow = true): static;
@@ -97,7 +97,7 @@ abstract class ModuleSettings
     }
 
     /**
-     * Возвращает
+     * @return array<string,callable>
      */
     protected function getNormalizers(): array
     {
@@ -128,6 +128,9 @@ abstract class ModuleSettings
         return (string) $value;
     }
 
+    /**
+     * @return string[]
+     */
     protected function getProperties(): array
     {
         if (empty($this->registeredProperties)) {
@@ -142,6 +145,9 @@ abstract class ModuleSettings
         return $this->registeredProperties;
     }
 
+    /**
+     * @return \ReflectionClass<static>
+     */
     private function getReflection(): \ReflectionClass
     {
         if (!isset(self::$reflections[static::class])) {
@@ -154,7 +160,7 @@ abstract class ModuleSettings
     /**
      * Сохранение параметров из массива.
      *
-     * @param array $data Массив значений, ключ - символьный код параметра
+     * @param array<string, mixed> $data Массив значений, ключ - символьный код параметра
      *
      * @throws ArgumentNullException
      * @throws ArgumentOutOfRangeException

@@ -27,7 +27,7 @@ class OptionsDump
      * Настройки класса конфигурации модуля в php файл.
      *
      * @param ModuleSettings $settings Объект конфигурации
-     * @param array          $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param string[]       $filter   Массив символьных кодов настроек, которы необходимо исключить
      *
      * @throws ArgumentNullException
      */
@@ -55,7 +55,7 @@ class OptionsDump
      *
      * @param string       $moduleId Идентификатор модуля
      * @param string       $fileName Путь к файлу настроек без расширения
-     * @param array        $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param string[]     $filter   Массив символьных кодов настроек, которы необходимо исключить
      * @param false|string $siteId   Идентификатор сайта или false для сайта по умолчанию
      *
      * @throws ArgumentNullException
@@ -77,7 +77,7 @@ class OptionsDump
      * Восстановление настроек модуля из php файла.
      *
      * @param ModuleSettings $settings Идентификатор модуля
-     * @param array          $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param string[]       $filter   Массив символьных кодов настроек, которы необходимо исключить
      * @param bool           $backup   Выполнять бекап
      *
      * @throws ArgumentNullException
@@ -111,7 +111,7 @@ class OptionsDump
      * Восстановление настроек модуля из php файла.
      *
      * @param string      $moduleId Идентификатор модуля
-     * @param array       $filter   Массив символьных кодов настроек, которы необходимо исключить
+     * @param string[]    $filter   Массив символьных кодов настроек, которы необходимо исключить
      * @param bool|string $siteId   Идентификатор сайта или false для сайта по умолчанию
      * @param bool        $backup   Выполнять бекап
      *

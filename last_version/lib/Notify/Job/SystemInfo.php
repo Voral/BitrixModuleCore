@@ -11,6 +11,7 @@ use Vasoft\Core\Notify\Contract\JobProcessorInterface;
  */
 class SystemInfo implements JobProcessorInterface
 {
+    /** @var array<string,mixed> */
     private array $result = [];
 
     public function execute(): void
@@ -20,6 +21,9 @@ class SystemInfo implements JobProcessorInterface
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public function getMessageStrings(): array
     {
         return [

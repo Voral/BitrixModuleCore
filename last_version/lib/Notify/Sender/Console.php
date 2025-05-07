@@ -13,6 +13,9 @@ class Console implements SendServiceInterface
 {
     public function __construct() {}
 
+    /**
+     * @param string[] $messageStrings
+     */
     public function send(array $messageStrings): bool
     {
         echo $this->render($messageStrings);
@@ -20,7 +23,10 @@ class Console implements SendServiceInterface
         return true;
     }
 
-    private function render($messageStrings): string
+    /**
+     * @param string[] $messageStrings
+     */
+    private function render(array $messageStrings): string
     {
         $message = implode("\r\n", $messageStrings);
         $message = preg_replace('#<br\s*/?>#i', "\r\n", $message);

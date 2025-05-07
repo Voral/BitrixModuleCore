@@ -27,6 +27,9 @@ final class Tab
         $this->title = '' === $title ? $this->name : $title;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function map(): array
     {
         $result = [

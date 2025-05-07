@@ -11,13 +11,19 @@ use Bitrix\Main\EventManager;
 class HandlerInstaller
 {
     private EventManager $manager;
+    /**
+     * @var array<array<string, string>>
+     */
     public readonly array $handlers;
 
+    /**
+     * @param HandlerDto[] $handlers
+     */
     public function __construct(
         public readonly string $moduleId,
         array $handlers,
     ) {
-        $this->handlers = array_map(static fn(HandlerDto $dto) => [
+        $this->handlers = array_map(static fn(HandlerDto $dto): array => [
             'FROM_MODULE_ID' => $dto->emmitModuleId,
             'MESSAGE_ID' => $dto->messageId,
             'TO_CLASS' => $dto->receiverClass,
@@ -54,6 +60,9 @@ class HandlerInstaller
         array_walk($exists, [$this, 'unregister']);
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     private function unregister(array $data): void
     {
         $this->manager->unRegisterEventHandler(
@@ -65,6 +74,9 @@ class HandlerInstaller
         );
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     private function register(array $data): void
     {
         $this->manager->registerEventHandler(
@@ -76,6 +88,12 @@ class HandlerInstaller
         );
     }
 
+    /**
+     * @param array<string, array<string, string>> $result
+     * @param array<string, string>                $curry
+     *
+     * @return array<string, array<string, string>>
+     */
     private function indexer(array $result, array $curry): array
     {
         $result[implode('##', [
@@ -89,11 +107,13 @@ class HandlerInstaller
     }
 
     /**
-     * @throws SqlQueryException
+     * @return array<int, array<string, mixed>>
      *
      * @noinspection SqlResolve
      * @noinspection SqlNoDataSourceInspection
      * @noinspection SqlDialectInspection
+     *
+     * @throws SqlQueryException
      */
     private function getExists(): array
     {
