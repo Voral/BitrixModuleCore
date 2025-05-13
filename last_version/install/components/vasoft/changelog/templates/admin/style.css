@@ -7,6 +7,7 @@
 .vs-changelog__panel {
     display: flex;
     gap: 16px;
+    align-items: center;
 }
 
 .vs-changelog__version {
@@ -18,7 +19,7 @@
 .vs-changelog__version-header {
     display: flex;
     gap: 8px;
-    align-items: end;
+    align-items: baseline;
 }
 
 .vs-changelog__title {
@@ -29,11 +30,13 @@
     font-size: 14px;
     opacity: 0.8;
 }
-.vs-changelog__box{
+
+.vs-changelog__box {
     display: flex;
     flex-direction: column;
     gap: 24px;
 }
+
 .vs-changelog__section {
     display: flex;
     flex-direction: column;
@@ -48,4 +51,14 @@
 ul.vs-changelog__changes {
     margin: 0;
     padding: 0 0 0 16px;
+}
+
+.vs-changelog__version_current {
+    border-left: 4px solid #0073aa;
+    padding: 8px;
+}
+
+.vs-changelog__version_current .vs-changelog__title {
+    font-size: 20px;
+    font-weight: bold;
 }

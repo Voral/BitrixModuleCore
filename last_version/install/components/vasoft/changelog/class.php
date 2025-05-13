@@ -150,6 +150,7 @@ class VasoftChangelogComponent extends CBitrixComponent implements Controllerabl
         return [
             'date' => $entry->date->format($this->dateFormat),
             'version' => $entry->version,
+            'current' => $entry->last,
             'sections' => array_map($this->mapChangelogSection(...), $entry->sections),
         ];
     }

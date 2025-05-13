@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vasoft\Core\Handlers;
 
 use Vasoft\Core\Notify\Handlers\Main;
+use Vasoft\Core\Changelog\Main as ChangelogMain;
 use Vasoft\Core\Settings\ModuleConfig;
 use Vasoft\Core\Updater\HandlerDto;
 use Vasoft\Core\Updater\HandlerInstaller;
@@ -25,6 +26,12 @@ class HandlerUpdater extends HandlerInstaller
                 'OnAutoBackupSuccess',
                 Main::class,
                 'onAutoBackupSuccess',
+            ),
+            new HandlerDto(
+                'main',
+                'OnBuildGlobalMenu',
+                ChangelogMain::class,
+                'onBuildGlobalMenu',
             ),
         ]);
     }

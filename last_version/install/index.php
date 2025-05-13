@@ -15,6 +15,7 @@ declare(strict_types=1);
 use Bitrix\Main\ArgumentNullException;
 use Bitrix\Main\Config\Option;
 use Bitrix\Main\DB\SqlQueryException;
+use Bitrix\Main\IO\FileNotFoundException;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use Bitrix\Main\Localization\Loc;
@@ -24,6 +25,7 @@ use Vasoft\Core\Exceptions\DependencyExistsException;
 use Vasoft\Core\Handlers\HandlerUpdater;
 use Vasoft\Core\System\Emitter;
 use Bitrix\Main\ArgumentException;
+use Vasoft\Core\Updater\FileInstaller;
 
 Loc::loadMessages(__FILE__);
 
@@ -79,6 +81,7 @@ class vasoft_core extends CModule
      *
      * @throws ArgumentException
      * @throws ArgumentNullException
+     * @throws FileNotFoundException
      * @throws LoaderException
      * @throws SqlQueryException
      */
@@ -111,17 +114,21 @@ class vasoft_core extends CModule
 
     /**
      * @throws SqlQueryException
+     * @throws FileNotFoundException
      */
     public function InstallEvents(): void
     {
         (new HandlerUpdater())->check();
+        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->checkAdminPages();
     }
 
     /**
+     * @throws FileNotFoundException
      * @throws SqlQueryException
      */
     public function UnInstallEvents(): void
     {
+        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->cleanAdminPages();
         (new HandlerUpdater())->clean();
     }
 }

@@ -24,6 +24,9 @@
     VasoftChangelog.renderVersion = function (version) {
         let element = document.createElement('div');
         element.classList.add('vs-changelog__version');
+        if (version.current) {
+            element.classList.add('vs-changelog__version_current');
+        }
         let elementHeader = document.createElement('div');
         elementHeader.classList.add('vs-changelog__version-header');
 
@@ -61,7 +64,6 @@
         changelogBox.appendChild(panel);
         changelogBox.appendChild(VasoftChangelog.box);
         VasoftChangelog.get('');
-        // VasoftChangelog.get(panel.querySelector('.vs-changelog__input').value);
         return true;
     }
     VasoftChangelog.get = function (search) {
@@ -101,7 +103,7 @@
 
         let input = document.createElement('input');
         input.classList.add('vs-changelog__input');
-
+        input.type = 'text';
 
         let button = document.createElement('button');
         button.classList.add('vs-changelog__button', ...options.classes.split(' '));
