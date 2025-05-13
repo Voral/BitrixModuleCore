@@ -9,14 +9,24 @@ use Vasoft\Core\Exceptions\FileException;
 
 class Markdown
 {
+    public const VERSION_REGEXP = '/^#\s*v?(?<version>[0-9\.]+)\s*\(?(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})\)?/';
+    public const SECTION_REGEXP = '/^###\s*(?<section>[^#\n]+)\s*$/';
+
+    private readonly string $versionRegexp;
+
+    private readonly string $sectionRegexp;
+
     /**
      * @param string $versionRegexp Регулярное выражение для парсинга версий
      * @param string $sectionRegexp Регулярное выражение для парсинга секций
      */
     public function __construct(
-        private readonly string $versionRegexp = '/^#\s*v?(?<version>[0-9\.]+)\s*(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/',
-        private readonly string $sectionRegexp = '/^##\s+(?<section>[^#\n]+)\s*$/',
-    ) {}
+        string $versionRegexp = '',
+        string $sectionRegexp = '',
+    ) {
+        $this->versionRegexp = $versionRegexp ?: self::VERSION_REGEXP;
+        $this->sectionRegexp = $sectionRegexp ?: self::SECTION_REGEXP;
+    }
 
     /**
      * @param string $filePath Петь к файлу
@@ -37,17 +47,17 @@ class Markdown
         if (!$handle) {
             throw new FileException(Loc::getMessage('VS_CORE_ERROR_FILE_OPEN', ['#FILE#' => $filePath]));
         }
-
         $changelog = [];
         $currentVersion = null;
         $currentSection = null;
         $count = 0;
         while (($line = fgets($handle)) !== false) {
             $line = trim($line);
+
             if (preg_match($this->versionRegexp, $line, $matches)) {
                 if (null !== $currentVersion) {
                     if (null !== $currentSection) {
-                        $currentVersion->changes[] = $currentSection;
+                        $currentVersion->sections[] = $currentSection;
                     }
                     if ('' === $filter || $this->matchFilter($currentVersion, $filter)) {
                         $changelog[] = $currentVersion;
@@ -69,7 +79,7 @@ class Markdown
 
             if (preg_match($this->sectionRegexp, $line, $matches)) {
                 if (null !== $currentSection) {
-                    $currentVersion->changes[] = $currentSection;
+                    $currentVersion->sections[] = $currentSection;
                 }
                 $currentSection = new ChangelogSection(trim($matches[1]));
 
@@ -89,7 +99,7 @@ class Markdown
 
         if (null !== $currentVersion) {
             if (null !== $currentSection) {
-                $currentVersion->changes[] = $currentSection;
+                $currentVersion->sections[] = $currentSection;
             }
             if ('' === $filter || $this->matchFilter($currentVersion, $filter)) {
                 $changelog[] = $currentVersion;
@@ -109,7 +119,7 @@ class Markdown
             return true;
         }
 
-        foreach ($entry->changes as $section) {
+        foreach ($entry->sections as $section) {
             foreach ($section->items as $item) {
                 if ($this->isSimilar($item, $filter)) {
                     return true;

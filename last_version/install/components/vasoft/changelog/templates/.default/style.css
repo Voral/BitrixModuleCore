@@ -1,0 +1,51 @@
+.vs-changelog {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vs-changelog__panel {
+    display: flex;
+    gap: 16px;
+}
+
+.vs-changelog__version {
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+}
+
+.vs-changelog__version-header {
+    display: flex;
+    gap: 8px;
+    align-items: end;
+}
+
+.vs-changelog__title {
+    font-size: 18px;
+}
+
+.vs-changelog__date {
+    font-size: 14px;
+    opacity: 0.8;
+}
+.vs-changelog__box{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.vs-changelog__section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-left: 16px;
+}
+
+.vs-changelog__section-title {
+    font-size: 16px;
+}
+
+ul.vs-changelog__changes {
+    margin: 0;
+    padding: 0 0 0 16px;
+}
