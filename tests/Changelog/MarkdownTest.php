@@ -78,29 +78,28 @@ final class MarkdownTest extends TestCase
         self::assertInstanceOf(ChangelogEntry::class, $result[0]);
         self::assertSame('5.0.0', $result[0]->version);
         self::assertSame('2023-11-25', $result[0]->date->format('Y-m-d'));
-
-        self::assertCount(1, $result[0]->changes);
-        self::assertInstanceOf(ChangelogSection::class, $result[0]->changes[0]);
-        self::assertSame('Added', $result[0]->changes[0]->title);
-        self::assertCount(1, $result[0]->changes[0]->items);
-        self::assertSame('Added new functionality 1', $result[0]->changes[0]->items[0]);
+        self::assertCount(1, $result[0]->sections);
+        self::assertInstanceOf(ChangelogSection::class, $result[0]->sections[0]);
+        self::assertSame('Added', $result[0]->sections[0]->title);
+        self::assertCount(1, $result[0]->sections[0]->items);
+        self::assertSame('Added new functionality 1', $result[0]->sections[0]->items[0]);
         self::assertTrue($result[0]->last);
 
         $testResult = $result[1];
-        self::assertCount(2, $testResult->changes);
-        self::assertSame('Added', $testResult->changes[0]->title);
+        self::assertCount(2, $testResult->sections);
+        self::assertSame('Added', $testResult->sections[0]->title);
         self::assertFalse($testResult->last);
         self::assertSame(
             ['Added new functionality 2', 'Added some new functionality 2'],
-            $testResult->changes[0]->items,
+            $testResult->sections[0]->items,
         );
-        self::assertSame('Changed', $testResult->changes[1]->title);
-        self::assertSame(['Changed something'], $testResult->changes[1]->items);
+        self::assertSame('Changed', $testResult->sections[1]->title);
+        self::assertSame(['Changed something'], $testResult->sections[1]->items);
 
         $testResult = $result[2];
         self::assertSame('3.59.0', $testResult->version);
-        self::assertCount(1, $testResult->changes);
-        self::assertSame(['Added new functionality 3 with some multiline description'], $testResult->changes[0]->items);
+        self::assertCount(1, $testResult->sections);
+        self::assertSame(['Added new functionality 3 with some multiline description'], $testResult->sections[0]->items);
     }
 
     public function testParseFromFileNoLimit(): void
@@ -172,55 +171,55 @@ final class MarkdownTest extends TestCase
         $this->clearMockFOpen([$filePath => new \stdClass()]);
         $this->clearMockFGets([
             '#5.0.0 2023-11-25',
-            '## Added',
+            '### Added',
             '* Added new functionality 1',
             '',
             '#4.0.0  2023-11-22',
-            '## Added',
+            '### Added',
             '- Added new functionality 2',
             '- Added some new functionality 2',
-            '## Changed',
+            '### Changed',
             '* Changed something',
             '',
             '#v3.59.0  2022-11-25',
-            '## Added',
+            '### Added',
             '* Added new functionality 3',
             'with some multiline description',
             '#3.58.0  2022-11-24',
-            '## Added',
+            '### Added',
             '* Added new functionality 4',
             '#3.57.0  2022-11-23',
-            '## Added',
+            '### Added',
             '* Added new functionality 5',
             '#3.56.0  2022-11-22',
-            '## Added',
+            '### Added',
             '* Added new functionality 6',
             '* Added some new functionality 6 targets phrase',
             '#3.55.0  2022-11-21',
-            '## Added',
+            '### Added',
             '* Added new functionality 7',
             '#3.54.0  2022-11-20',
-            '## Added',
+            '### Added',
             '* Added new functionality 8',
             '',
             '#3.53.0  2022-11-19',
-            '## Added',
+            '### Added',
             '* Added new functionality 9',
             ' target phrases',
             '#3.52.0  2022-11-18',
-            '## Added',
+            '### Added',
             '* Added new functionality 10',
             '#2.2.0  2022-11-11',
-            '## Added',
+            '### Added',
             '* Added new functionality 11',
             '#2.1.0  2022-11-10',
-            '## Added',
+            '### Added',
             '* Added new functionality 12 phrases',
             '#1.1.0  2022-10-10',
-            '## Added',
+            '### Added',
             '* Added new targets functionality 13 phrase',
             '# 1.0.0  2022-05-10',
-            '## Added',
+            '### Added',
             '* Phrase targets',
         ]);
         $this->clearMockFClose();
