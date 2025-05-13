@@ -84,10 +84,12 @@ final class MarkdownTest extends TestCase
         self::assertSame('Added', $result[0]->changes[0]->title);
         self::assertCount(1, $result[0]->changes[0]->items);
         self::assertSame('Added new functionality 1', $result[0]->changes[0]->items[0]);
+        self::assertTrue($result[0]->last);
 
         $testResult = $result[1];
         self::assertCount(2, $testResult->changes);
         self::assertSame('Added', $testResult->changes[0]->title);
+        self::assertFalse($testResult->last);
         self::assertSame(
             ['Added new functionality 2', 'Added some new functionality 2'],
             $testResult->changes[0]->items,
@@ -136,6 +138,7 @@ final class MarkdownTest extends TestCase
 
         $result = $parser->parseFromFile($filePath, 0, filter: '2.2.0');
         self::assertCount(1, $result);
+        self::assertFalse($result[0]->last);
     }
 
     public function testParseFromFileFilterDate(): void
@@ -146,6 +149,7 @@ final class MarkdownTest extends TestCase
 
         $result = $parser->parseFromFile($filePath, filter: '2023-11-22');
         self::assertCount(1, $result);
+        self::assertFalse($result[0]->last);
     }
 
     public function testParseFromFileFilterWord(): void
@@ -159,6 +163,7 @@ final class MarkdownTest extends TestCase
         self::assertSame('3.56.0', $result[0]->version);
         self::assertSame('1.1.0', $result[1]->version);
         self::assertSame('1.0.0', $result[2]->version);
+        self::assertFalse($result[0]->last);
     }
 
     private function configDefault(string $filePath): void

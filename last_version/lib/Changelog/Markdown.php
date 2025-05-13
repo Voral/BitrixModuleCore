@@ -51,11 +51,13 @@ class Markdown
         $currentVersion = null;
         $currentSection = null;
         $count = 0;
+        $lastVersion = true;
         while (($line = fgets($handle)) !== false) {
             $line = trim($line);
 
             if (preg_match($this->versionRegexp, $line, $matches)) {
                 if (null !== $currentVersion) {
+                    $lastVersion = false;
                     if (null !== $currentSection) {
                         $currentVersion->sections[] = $currentSection;
                     }
@@ -71,7 +73,7 @@ class Markdown
                 $validDate = new \DateTimeImmutable(
                     sprintf('%04d-%02d-%02d', $matches['year'], $matches['month'], $matches['day']),
                 );
-                $currentVersion = new ChangelogEntry($matches[1], $validDate);
+                $currentVersion = new ChangelogEntry($matches[1], $validDate, last: $lastVersion);
                 $currentSection = null;
 
                 continue;
