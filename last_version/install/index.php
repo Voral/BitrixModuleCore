@@ -69,6 +69,7 @@ class vasoft_core extends CModule
                 throw new SystemException(Loc::getMessage('ERROR_PHP_VERSION', ['#VERSION#', self::MIN_PHP_VERSION]));
             }
             ModuleManager::registerModule($this->MODULE_ID);
+            $this->InstallFiles();
             $this->InstallEvents();
         } catch (Exception $exception) {
             $APPLICATION->ThrowException($exception->getMessage());
@@ -93,6 +94,7 @@ class vasoft_core extends CModule
         try {
             Emitter::emitRemove();
             $this->UnInstallEvents();
+            $this->UnInstallFiles();
             Option::delete($this->MODULE_ID);
             ModuleManager::unRegisterModule($this->MODULE_ID);
         } catch (DependencyExistsException $e) {
@@ -114,21 +116,38 @@ class vasoft_core extends CModule
 
     /**
      * @throws SqlQueryException
-     * @throws FileNotFoundException
      */
     public function InstallEvents(): void
     {
         (new HandlerUpdater())->check();
-        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->checkAdminPages();
     }
 
     /**
-     * @throws FileNotFoundException
      * @throws SqlQueryException
      */
     public function UnInstallEvents(): void
     {
-        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->cleanAdminPages();
         (new HandlerUpdater())->clean();
+    }
+
+    /**
+     * @return void
+     * @throws FileNotFoundException
+     */
+    public function InstallFiles(): void
+    {
+        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->checkAdminPages();
+        CopyDirFiles(__DIR__ . '/components/', $_SERVER['DOCUMENT_ROOT'] . '/bitrix/components');
+    }
+
+    /**
+     * @return void
+     * @throws FileNotFoundException
+     */
+
+    public function UnInstallFiles(): void
+    {
+        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->cleanAdminPages();
+        DeleteDirFiles(__DIR__ . '/components/', $_SERVER['DOCUMENT_ROOT'] . '/bitrix/components');
     }
 }
