@@ -2,7 +2,12 @@
   "name": "voral/bitrix-module-core",
   "autoload": {
     "psr-4": {
-      "Vasoft\\Core\\": "last_version/lib/",
+      "Vasoft\\Core\\": "last_version/lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Vasoft\\Core\\Tests\\": "tests/",
       "Bitrix\\": "bx/Bitrix"
     }
   },
