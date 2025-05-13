@@ -9,7 +9,11 @@ use Bitrix\Main\Localization\Loc;
 
 class Main
 {
-    public static function onBuildGlobalMenu(&$aGlobalMenu, &$aModuleMenu): void
+    /**
+     * @param array<mixed> $aGlobalMenu
+     * @param array<mixed> $aModuleMenu
+     */
+    public static function onBuildGlobalMenu(array &$aGlobalMenu, array &$aModuleMenu): void
     {
         global $APPLICATION;
         $file = Loader::getDocumentRoot() . '/local/CHANGELOG.md';
