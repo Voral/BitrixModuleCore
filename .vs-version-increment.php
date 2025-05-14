@@ -17,6 +17,7 @@ $config->setSection('fix', 'Исправления')
     ->setSection('docs', 'Documentation', hidden: true)
     ->setSection('chore', 'Other changes', hidden: true)
     ->setHideDoubles(true)
+    ->setMasterBranch('next')
     ->setEnabledComposerVersioning(false);
 
 return $config;
