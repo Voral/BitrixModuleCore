@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "247ea093f82fb4f69a96c7e033640e37",
+    "content-hash": "82802fc46dc7649fc187cc7d60e55edb",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -1225,16 +1225,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.14",
+            "version": "2.1.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2"
+                "reference": "402d11c1aa40ae2e1c3a512e6a4edb957527b20b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
-                "reference": "8f2e03099cac24ff3b379864d171c5acbfc6b9a2",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/402d11c1aa40ae2e1c3a512e6a4edb957527b20b",
+                "reference": "402d11c1aa40ae2e1c3a512e6a4edb957527b20b",
                 "shasum": ""
             },
             "require": {
@@ -1279,7 +1279,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-02T15:32:28+00:00"
+            "time": "2025-05-14T11:16:08+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -4691,6 +4691,37 @@
             "time": "2024-03-03T12:36:25+00:00"
         },
         {
+            "name": "voral/bitrix-module-tool",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../bitrix-module-tool",
+                "reference": "49624dc1347e82d53ee35d5eec6e4baf336492f2"
+            },
+            "require": {
+                "php": "^8.1",
+                "voral/version-increment": "^2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Voral\\BitrixModuleTool\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Vorobyev",
+                    "email": "voral.adm@gmail.com"
+                }
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
             "name": "voral/mock-builder",
             "version": "v1.1.0",
             "source": {
@@ -4810,16 +4841,16 @@
         },
         {
             "name": "voral/version-increment",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Voral/vs-version-incrementor.git",
-                "reference": "d4cea1a9d7e30e17290c1067da9c736052648382"
+                "reference": "b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Voral/vs-version-incrementor/zipball/d4cea1a9d7e30e17290c1067da9c736052648382",
-                "reference": "d4cea1a9d7e30e17290c1067da9c736052648382",
+                "url": "https://api.github.com/repos/Voral/vs-version-incrementor/zipball/b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f",
+                "reference": "b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f",
                 "shasum": ""
             },
             "require": {
@@ -4877,7 +4908,7 @@
                 "issues": "https://github.com/Voral/vs-version-incrementor/issues",
                 "source": "https://github.com/Voral/vs-version-incrementor"
             },
-            "time": "2025-04-22T14:48:26+00:00"
+            "time": "2025-05-13T21:05:13+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -4940,7 +4971,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "voral/bitrix-module-tool": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

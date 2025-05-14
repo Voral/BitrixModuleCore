@@ -29,7 +29,8 @@
     "phpstan/phpstan-phpunit": "^2.0",
     "voral/mock-builder": "^1.0",
     "voral/version-increment": "^2.1",
-    "voral/mock-builder-bitrix": "^1.0"
+    "voral/mock-builder-bitrix": "^1.0",
+    "voral/bitrix-module-tool": "@dev"
   },
   "prefer-stable": true,
   "archive": {
@@ -39,10 +40,16 @@
       "phpunit.xml"
     ]
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../bitrix-module-tool"
+    }
+  ],
   "license": "MIT",
   "scripts": {
     "mock:bx": "php ./vendor/bin/vs-mock-builder.php",
-    "vi": "php ./vendor/bin/vs-version-increment",
+    "vi": "php ./vendor/bin/vs-version-increment --no-commit",
     "vi:debug": "php ./vendor/bin/vs-version-increment --debug",
     "test": "php vendor/bin/phpunit --display-warnings",
     "coverage": "php -dzend_extension=xdebug.so -dxdebug.mode=coverage vendor/bin/phpunit --coverage-text",
