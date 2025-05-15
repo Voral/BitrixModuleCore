@@ -5,6 +5,8 @@
 .last_version
 /updates/*/*
 !/updates/*/descr*
+!/updates/*/updater*.php
+!/updates/*/version-control.txt
 .idea
 /.vs-mock-builder.local.php
 /bx/
