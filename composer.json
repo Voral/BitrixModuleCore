@@ -58,6 +58,12 @@
     "checkit": [
       "@fixer",
       "@stan"
+    ],
+    "pack:last": "sh scripts/pack-last.sh",
+    "pack:ver": "sh scripts/pack-version.sh",
+    "pack": [
+      "@pack:ver",
+      "@pack:last"
     ]
   }
 }
