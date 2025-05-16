@@ -9,7 +9,8 @@ use Voral\BitrixModuleTool\ModuleListener;
 $config = new Config();
 
 $eventBus = $config->getEventBus();
-$eventBus->addListener(EventType::BEFORE_VERSION_SET, new ModuleListener($config));
+$listener = new ModuleListener($config,includePhpFile: __DIR__ . '/updates/update_include.php');
+$eventBus->addListener(EventType::BEFORE_VERSION_SET, $listener);
 $config->setSection('fix', 'Исправления')
     ->setSection('feat', 'Новый функционал')
     ->setSection('build', 'Build system', hidden: true)
