@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82802fc46dc7649fc187cc7d60e55edb",
+    "content-hash": "42fe20c70fa42c76d3521290629ed2ce",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -4692,21 +4692,54 @@
         },
         {
             "name": "voral/bitrix-module-tool",
-            "version": "dev-main",
+            "version": "dev-master",
             "dist": {
                 "type": "path",
                 "url": "../bitrix-module-tool",
-                "reference": "49624dc1347e82d53ee35d5eec6e4baf336492f2"
+                "reference": "5a57e76459767e2c9b71b76457b2e4b990ec3ca9"
             },
             "require": {
                 "php": "^8.1",
-                "voral/version-increment": "^2.1"
+                "voral/version-increment": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.66.0",
+                "php-mock/php-mock-phpunit": "^2.13",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^10.5"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Voral\\BitrixModuleTool\\": "src/"
                 }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Voral\\BitrixModuleTool\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "vi": [
+                    "php ./vendor/bin/vs-version-increment"
+                ],
+                "vi:debug": [
+                    "php ./vendor/bin/vs-version-increment --debug"
+                ],
+                "test": [
+                    "php vendor/bin/phpunit --display-warnings"
+                ],
+                "stan": [
+                    "vendor/bin/phpstan analyse src tests"
+                ],
+                "fixer": [
+                    "vendor/bin/php-cs-fixer fix --dry-run --diff"
+                ],
+                "checkit": [
+                    "@fixer",
+                    "@stan"
+                ]
             },
             "license": [
                 "MIT"
@@ -4841,16 +4874,16 @@
         },
         {
             "name": "voral/version-increment",
-            "version": "2.1.1",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Voral/vs-version-incrementor.git",
-                "reference": "b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f"
+                "reference": "dd6acb77516ad1c3cb0f9d18bfa95ad7a2a17734"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Voral/vs-version-incrementor/zipball/b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f",
-                "reference": "b3d88a71166b9ddc0d5d43ac51bd51f92f6c6e3f",
+                "url": "https://api.github.com/repos/Voral/vs-version-incrementor/zipball/dd6acb77516ad1c3cb0f9d18bfa95ad7a2a17734",
+                "reference": "dd6acb77516ad1c3cb0f9d18bfa95ad7a2a17734",
                 "shasum": ""
             },
             "require": {
@@ -4908,7 +4941,7 @@
                 "issues": "https://github.com/Voral/vs-version-incrementor/issues",
                 "source": "https://github.com/Voral/vs-version-incrementor"
             },
-            "time": "2025-05-13T21:05:13+00:00"
+            "time": "2025-05-15T21:15:36+00:00"
         },
         {
             "name": "webmozart/assert",

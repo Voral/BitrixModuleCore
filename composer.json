@@ -28,7 +28,7 @@
     "phpstan/phpstan": "^2.1",
     "phpstan/phpstan-phpunit": "^2.0",
     "voral/mock-builder": "^1.0",
-    "voral/version-increment": "^2.1",
+    "voral/version-increment": "^3.0",
     "voral/mock-builder-bitrix": "^1.0",
     "voral/bitrix-module-tool": "@dev"
   },
