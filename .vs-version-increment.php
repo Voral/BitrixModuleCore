@@ -9,7 +9,11 @@ use Voral\BitrixModuleTool\ModuleListener;
 $config = new Config();
 
 $eventBus = $config->getEventBus();
-$listener = new ModuleListener($config,includePhpFile: __DIR__ . '/updates/update_include.php');
+$listener = new ModuleListener(
+    $config,
+    'vasoft.core',
+    includePhpFile: __DIR__ . '/updates/update_include.php',
+);
 $eventBus->addListener(EventType::BEFORE_VERSION_SET, $listener);
 $config->setSection('fix', 'Исправления')
     ->setSection('feat', 'Новый функционал')
