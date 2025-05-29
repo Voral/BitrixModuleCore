@@ -1,0 +1,4 @@
+- Added a project history page to the admin panel
+- Added a component to display change history
+- Added a parser for CHANGELOG.md files
+- Added a service for sending messages to Telegram and console
