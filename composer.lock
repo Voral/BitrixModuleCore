@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42fe20c70fa42c76d3521290629ed2ce",
+    "content-hash": "fb8b48e4ae4c9cde58d842f6c4c75b06",
     "packages": [
         {
             "name": "nikic/php-parser",
@@ -4692,11 +4692,17 @@
         },
         {
             "name": "voral/bitrix-module-tool",
-            "version": "dev-master",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Voral/bitrix-module-tool.git",
+                "reference": "ff8b8806c8260675b7d698b83376a166e0181367"
+            },
             "dist": {
-                "type": "path",
-                "url": "../bitrix-module-tool",
-                "reference": "5a57e76459767e2c9b71b76457b2e4b990ec3ca9"
+                "type": "zip",
+                "url": "https://api.github.com/repos/Voral/bitrix-module-tool/zipball/ff8b8806c8260675b7d698b83376a166e0181367",
+                "reference": "ff8b8806c8260675b7d698b83376a166e0181367",
+                "shasum": ""
             },
             "require": {
                 "php": "^8.1",
@@ -4715,32 +4721,7 @@
                     "Voral\\BitrixModuleTool\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Voral\\BitrixModuleTool\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "vi": [
-                    "php ./vendor/bin/vs-version-increment"
-                ],
-                "vi:debug": [
-                    "php ./vendor/bin/vs-version-increment --debug"
-                ],
-                "test": [
-                    "php vendor/bin/phpunit --display-warnings"
-                ],
-                "stan": [
-                    "vendor/bin/phpstan analyse src tests"
-                ],
-                "fixer": [
-                    "vendor/bin/php-cs-fixer fix --dry-run --diff"
-                ],
-                "checkit": [
-                    "@fixer",
-                    "@stan"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4750,9 +4731,21 @@
                     "email": "voral.adm@gmail.com"
                 }
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "description": "Extension for vs-version-incrementor to automate building update packages for Bitrix modules.",
+            "homepage": "https://github.com/Voral/bitrix-module-tool",
+            "keywords": [
+                "bitrix",
+                "marketplace",
+                "module",
+                "php",
+                "version-increment",
+                "vs-version-incrementor"
+            ],
+            "support": {
+                "issues": "https://github.com/Voral/bitrix-module-tool/issues",
+                "source": "https://github.com/Voral/bitrix-module-tool"
+            },
+            "time": "2025-05-29T07:35:18+00:00"
         },
         {
             "name": "voral/mock-builder",
@@ -5004,9 +4997,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "voral/bitrix-module-tool": 20
-    },
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

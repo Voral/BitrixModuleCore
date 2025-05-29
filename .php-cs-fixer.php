@@ -9,7 +9,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $finder = Finder::create()
     ->in([
-        __DIR__ . '/last_version/lib',
+        __DIR__ . '/src/lib',
         __DIR__ . '/tests',
     ]);
 

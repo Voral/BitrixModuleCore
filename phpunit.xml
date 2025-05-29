@@ -19,11 +19,11 @@
   </testsuites>
   <source>
     <include>
-      <directory suffix=".php">last_version/lib</directory>
+      <directory suffix=".php">src/lib</directory>
     </include>
     <exclude>
-      <file>last_version/lib/Changelog/Main.php</file>
-      <file>last_version/lib/Handlers/HandlerUpdater.php</file>
+      <file>src/lib/Changelog/Main.php</file>
+      <file>src/lib/Handlers/HandlerUpdater.php</file>
       <directory>vendor</directory>
       <directory>tests</directory>
     </exclude>
