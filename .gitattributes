@@ -12,3 +12,4 @@
 /docs export-ignore
 /phpstan-bootstrap.php export-ignore
 /CHANGELOG.md export-ignore
+/scripts export-ignore
