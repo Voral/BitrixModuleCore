@@ -7,6 +7,3 @@
 /assets export-ignore
 /updates export-ignore
 /.vs-mock-builder.php export-ignore
-/make.sh export-ignore
-/make_to1251.sh export-ignore
-/makeX.sh export-ignore
