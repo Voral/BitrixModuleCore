@@ -1,4 +1,5 @@
 <?php
+
 /** @noinspection PhpUnused */
 
 declare(strict_types=1);
@@ -6,7 +7,6 @@ declare(strict_types=1);
 /*
  * Базовый модуль для решений
  * @author Воробьев Александр
- * @version 1.0.0
  * @package vasoft.core
  * @see https://va-soft.ru/
  * @subpackage Установка модуля
@@ -29,7 +29,7 @@ use Vasoft\Core\Updater\FileInstaller;
 
 Loc::loadMessages(__FILE__);
 
-class vasoft_core extends CModule
+class index extends CModule
 {
     public $MODULE_ID = 'vasoft.core';
     public const MIN_PHP_VERSION = '8.1.0';
@@ -55,9 +55,10 @@ class vasoft_core extends CModule
      * @noinspection AccessModifierPresentedInspection
      * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    public function DoInstall(): void
+    public function DoInstall(): bool
     {
         global $APPLICATION;
+        $result = false;
 
         try {
             if ($this->isWrongCoreVersion()) {
@@ -71,9 +72,12 @@ class vasoft_core extends CModule
             ModuleManager::registerModule($this->MODULE_ID);
             $this->InstallFiles();
             $this->InstallEvents();
+            $result = true;
         } catch (Exception $exception) {
             $APPLICATION->ThrowException($exception->getMessage());
         }
+
+        return $result;
     }
 
     /**
@@ -86,10 +90,11 @@ class vasoft_core extends CModule
      * @throws LoaderException
      * @throws SqlQueryException
      */
-    public function DoUninstall(): void
+    public function DoUninstall(): bool
     {
         global $APPLICATION;
         Loader::includeModule($this->MODULE_ID);
+        $result = false;
 
         try {
             Emitter::emitRemove();
@@ -97,11 +102,14 @@ class vasoft_core extends CModule
             $this->UnInstallFiles();
             Option::delete($this->MODULE_ID);
             ModuleManager::unRegisterModule($this->MODULE_ID);
+            $result = true;
         } catch (DependencyExistsException $e) {
             $APPLICATION->throwException(
                 $e->getMessage() . '<ul><li>' . implode('</li><li>', $e->dependency) . '</li></ul>',
             );
         }
+
+        return $result;
     }
 
     private function isWrongCoreVersion(): bool
@@ -131,7 +139,6 @@ class vasoft_core extends CModule
     }
 
     /**
-     * @return void
      * @throws FileNotFoundException
      */
     public function InstallFiles(): void
@@ -141,10 +148,8 @@ class vasoft_core extends CModule
     }
 
     /**
-     * @return void
      * @throws FileNotFoundException
      */
-
     public function UnInstallFiles(): void
     {
         (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->cleanAdminPages();

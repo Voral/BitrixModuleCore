@@ -15,6 +15,8 @@ $config = $configurator->getBitrixMockBuilderSettings(__DIR__ . '/bx/', ['main']
 $config['resultTypes'] = [
     'Bitrix\Main\Application::getConnection' => '\Bitrix\Main\DB\Connection',
     'Bitrix\Main\ORM\Query::fetchCollection' => '\Bitrix\Main\ORM\Objectify\Collection',
+    'CModule::DoInstall' => 'bool',
+    'CModule::DoUninstall' => 'bool',
 ];
 
 return $config;
