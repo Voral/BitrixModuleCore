@@ -3,6 +3,6 @@
 declare(strict_types=1);
 
 $arModuleVersion = [
-    'VERSION' => '1.1.0',
-    'VERSION_DATE' => '2025-05-28',
+    'VERSION' => '1.1.1',
+    'VERSION_DATE' => '2025-05-30',
 ];
