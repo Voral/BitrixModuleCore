@@ -29,7 +29,7 @@ use Vasoft\Core\Updater\FileInstaller;
 
 Loc::loadMessages(__FILE__);
 
-class index extends CModule
+class vasoft_core extends CModule
 {
     public $MODULE_ID = 'vasoft.core';
     public const MIN_PHP_VERSION = '8.1.0';
