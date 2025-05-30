@@ -70,6 +70,7 @@ class vasoft_core extends CModule
                 throw new SystemException(Loc::getMessage('ERROR_PHP_VERSION', ['#VERSION#', self::MIN_PHP_VERSION]));
             }
             ModuleManager::registerModule($this->MODULE_ID);
+            Loader::includeModule($this->MODULE_ID);
             $this->InstallFiles();
             $this->InstallEvents();
             $result = true;
@@ -143,7 +144,7 @@ class vasoft_core extends CModule
      */
     public function InstallFiles(): void
     {
-        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->checkAdminPages();
+        (new FileInstaller('vasoft_core_', __DIR__))->checkAdminPages();
         CopyDirFiles(__DIR__ . '/components/', $_SERVER['DOCUMENT_ROOT'] . '/bitrix/components');
     }
 
@@ -152,7 +153,7 @@ class vasoft_core extends CModule
      */
     public function UnInstallFiles(): void
     {
-        (new FileInstaller('vasoft_core_', __DIR__ . '/admin/'))->cleanAdminPages();
+        (new FileInstaller('vasoft_core_', __DIR__))->cleanAdminPages();
         DeleteDirFiles(__DIR__ . '/components/', $_SERVER['DOCUMENT_ROOT'] . '/bitrix/components');
     }
 }
