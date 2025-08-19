@@ -57,7 +57,7 @@ final class MainTest extends TestCase
     public function testOnAutoBackupUnknownError(): void
     {
         Configuration::cleanMockData('getInstance', defaultDefinition: new MockDefinition(result: new Configuration()));
-        $time = time();
+        $time = microtime(true);
         $payload = ['START_TIME' => $time, 'ERROR' => 'Test'];
         Configuration::cleanMockData(
             'get',
@@ -68,7 +68,7 @@ final class MainTest extends TestCase
         Main::$senderClass = TestTelegramSender::class;
         Main::onAutoBackupUnknownError($payload);
         self::assertSame(
-            ['Run backup at ' . date('Y-m-d H:i:s', $payload['START_TIME']), 'Error: Test'],
+            ['Run backup at ' . date('Y-m-d H:i:s', (int) $payload['START_TIME']), 'Error: Test'],
             TestTelegramSender::$messages,
         );
     }
@@ -100,11 +100,11 @@ final class MainTest extends TestCase
             ),
         );
         Main::$senderClass = TestTelegramSender::class;
-        $time = time();
+        $time = microtime(true);
         $payload = ['START_TIME' => $time, 'arc_size' => 7654604];
         Main::onAutoBackupSuccess($payload);
         self::assertSame(
-            ['Run backup at ' . date('Y-m-d H:i:s', $payload['START_TIME']), 'Size 7.30'],
+            ['Run backup at ' . date('Y-m-d H:i:s', (int) $payload['START_TIME']), 'Size 7.30'],
             TestTelegramSender::$messages,
         );
     }

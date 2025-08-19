@@ -29,10 +29,9 @@ class Main
     public static function onAutoBackupUnknownError(mixed $payload): void
     {
         $sender = self::getTelegramSender();
-        $payload['START_TIME'] = isset($payload['START_TIME']) ? date(
-            'Y-m-d H:i:s',
-            $payload['START_TIME'],
-        ) : 'Unknown';
+        $payload['START_TIME'] = isset($payload['START_TIME'])
+            ? date('Y-m-d H:i:s', (int) $payload['START_TIME'])
+            : 'Unknown';
         $sender?->send([
             'Run backup at ' . $payload['START_TIME'],
             'Error: ' . ($payload['ERROR'] ?? 'Unknown'),
@@ -42,10 +41,9 @@ class Main
     public static function onAutoBackupSuccess(mixed $payload): void
     {
         $sender = self::getTelegramSender();
-        $payload['START_TIME'] = isset($payload['START_TIME']) ? date(
-            'Y-m-d H:i:s',
-            $payload['START_TIME'],
-        ) : 'Unknown';
+        $payload['START_TIME'] = isset($payload['START_TIME'])
+            ? date('Y-m-d H:i:s', (int) $payload['START_TIME'])
+            : 'Unknown';
         $size = isset($payload['arc_size']) ? sprintf('%0.2f', $payload['arc_size'] / 1024 / 1024) : 'Unknown';
         $sender?->send(['Run backup at ' . $payload['START_TIME'], 'Size ' . $size]);
     }
