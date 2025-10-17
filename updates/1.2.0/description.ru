@@ -1,0 +1,1 @@
+- Markdown links are rendered as HTML in the changelog page
