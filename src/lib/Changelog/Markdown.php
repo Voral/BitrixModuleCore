@@ -107,8 +107,25 @@ class Markdown
                 $changelog[] = $currentVersion;
             }
         }
+        array_walk($changelog, $this->parseLinesMarkdown(...));
 
         return $changelog;
+    }
+
+    private function parseLinesMarkdown(ChangelogEntry $changelog): void
+    {
+        foreach ($changelog->sections as $section) {
+            $section->items = array_map($this->parseMarkdown(...), $section->items);
+        }
+    }
+
+    private function parseMarkdown(string $line): string
+    {
+        return preg_replace(
+            '/\[([^\]]+)\]\(([^)]+)\)/',
+            '<a href="$2">$1</a>',
+            $line,
+        );
     }
 
     private function matchFilter(ChangelogEntry $entry, string $filter): bool

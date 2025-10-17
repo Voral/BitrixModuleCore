@@ -82,7 +82,7 @@ final class MarkdownTest extends TestCase
         self::assertInstanceOf(ChangelogSection::class, $result[0]->sections[0]);
         self::assertSame('Added', $result[0]->sections[0]->title);
         self::assertCount(1, $result[0]->sections[0]->items);
-        self::assertSame('Added new functionality 1', $result[0]->sections[0]->items[0]);
+        self::assertSame('<a href="https://example.com/123">task</a> Added new functionality 1', $result[0]->sections[0]->items[0]);
         self::assertTrue($result[0]->last);
 
         $testResult = $result[1];
@@ -172,7 +172,7 @@ final class MarkdownTest extends TestCase
         $this->clearMockFGets([
             '#5.0.0 2023-11-25',
             '### Added',
-            '* Added new functionality 1',
+            '* [task](https://example.com/123) Added new functionality 1',
             '',
             '#4.0.0  2023-11-22',
             '### Added',

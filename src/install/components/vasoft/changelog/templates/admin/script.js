@@ -14,7 +14,7 @@
             for (let item of data.items) {
                 let elementItem = document.createElement('li');
                 elementItem.classList.add('vs-changelog__change');
-                elementItem.innerText = item;
+                elementItem.innerHTML = item;
                 list.appendChild(elementItem);
             }
             element.appendChild(list);
