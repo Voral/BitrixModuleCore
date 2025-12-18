@@ -27,7 +27,7 @@ class TextField extends Field
 
     public function renderInput(): string
     {
-        $value = htmlspecialchars(($this->getter)());
+        $value = htmlspecialchars((string) ($this->getter)());
 
         return $this->renderInputAndValue($value);
     }
