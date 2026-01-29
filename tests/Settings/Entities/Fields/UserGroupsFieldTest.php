@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Vasoft\Core\Tests\Settings\Entities\Fields;
 
+use Bitrix\Main\GroupTable;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Objectify\Collection;
@@ -26,7 +27,7 @@ final class UserGroupsFieldTest extends TestCase
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
+        GroupTable::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -67,7 +68,7 @@ final class UserGroupsFieldTest extends TestCase
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
+        GroupTable::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -103,7 +104,7 @@ final class UserGroupsFieldTest extends TestCase
         $collection = $this->getCollection($elements);
 
         $queryMock = self::createMock(Query::class);
-        DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
+        GroupTable::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
@@ -137,6 +138,7 @@ final class UserGroupsFieldTest extends TestCase
 
         $queryMock = self::createMock(Query::class);
         DataManager::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
+        GroupTable::cleanMockData('query', defaultDefinition: new MockDefinition(result: $queryMock));
         $queryMock->expects(self::once())
             ->method('addOrder')
             ->with('C_SORT')
