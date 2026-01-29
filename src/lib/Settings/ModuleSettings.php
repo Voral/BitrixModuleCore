@@ -79,7 +79,11 @@ abstract class ModuleSettings
      */
     public function reload(): void
     {
-        $this->options = Option::getForModule($this->moduleCode, $this->siteId);
+        $this->options = [];
+        $options = Option::getForModule($this->moduleCode, $this->siteId);
+        foreach ($options as $key => $value) {
+            $this->options[strtoupper($key)] = $value;
+        }
     }
 
     /**
