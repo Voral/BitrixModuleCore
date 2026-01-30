@@ -1,0 +1,2 @@
+Important!!! Backward compatibility breaking changes
+Fixed settings handling due to core Bitrix changes. Property names must now be in uppercase only.
